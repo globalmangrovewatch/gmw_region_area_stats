@@ -6,27 +6,40 @@ import rsgislib
 import rsgislib.imagecalc
 import rsgislib.vectorutils
 import numpy
-
+import osgeo.gdal as gdal
 
 logger = logging.getLogger(__name__)
 
 def calc_unq_val_pxl_areas(pix_area_img, uid_img, unq_val_area_lut):
-    from rios import applier
+    img_uid_ds = gdal.Open(uid_img)
+    if img_uid_ds is None:
+        raise Exception("Could not open the UID input image.")
+    img_uid_band = img_uid_ds.GetRasterBand(1)
+    if img_uid_band is None:
+        raise Exception("Failed to read the UID image band.")
+    uid_arr = img_uid_band.ReadAsArray()
+    img_uid_ds = None
 
-    infiles = applier.FilenameAssociations()
-    infiles.pix_area_img = pix_area_img
-    infiles.uid_img = uid_img
-    outfiles = applier.FilenameAssociations()
-    otherargs = applier.OtherInputs()
-    otherargs.unq_val_area_lut = unq_val_area_lut
-    aControls = applier.ApplierControls()
+    img_pixarea_ds = gdal.Open(pix_area_img)
+    if img_pixarea_ds is None:
+        raise Exception("Could not open the pixel area input image.")
+    img_pixarea_band = img_pixarea_ds.GetRasterBand(1)
+    if img_pixarea_band is None:
+        raise Exception("Failed to read the pixel area image band.")
+    pxl_area_arr = img_pixarea_band.ReadAsArray()
+    img_pixarea_ds = None
 
-    def _calcUnqValPxlArea(info, inputs, outputs, otherargs):
-        unq_pix_vals = numpy.unique(inputs.uid_img[0])
-        for val in unq_pix_vals:
-            unq_val_area_lut[val] += numpy.sum(inputs.pix_area_img[inputs.uid_img[0] == val])
+    unq_pix_vals = numpy.unique(uid_arr)
 
-    applier.apply(_calcUnqValPxlArea, infiles, outfiles, otherargs, controls=aControls)
+    for unq_val in unq_pix_vals:
+        if unq_val != 0:
+            msk = numpy.zeros_like(uid_arr, dtype=bool)
+            msk[numpy.logical_and(uid_arr == unq_val, uid_arr > 0)] = True
+
+            unq_val_area_lut[unq_val] = dict()
+            unq_val_area_lut[unq_val]['count'] = numpy.sum(msk)
+            unq_val_area_lut[unq_val]['area'] = numpy.sum(pxl_area_arr[msk])
+
 
 class CalcTileGMWExtent(PBPTQProcessTool):
 
@@ -48,7 +61,9 @@ class CalcTileGMWExtent(PBPTQProcessTool):
 
         lut_vals = dict()
         for val in self.params['unq_vals']:
-            lut_vals[val] = 0.0
+            lut_vals[val] = dict()
+            lut_vals[val]['count'] = 0
+            lut_vals[val]['area'] = 0.0
 
         calc_unq_val_pxl_areas(pix_area_img, uid_img, lut_vals)
 
