@@ -67,6 +67,10 @@ class CalcTileGMWExtent(PBPTQProcessTool):
 
         calc_unq_val_pxl_areas(pix_area_img, uid_img, lut_vals)
 
+        for val in self.params['unq_vals']:
+            lut_vals[val]['count'] = int(lut_vals[val]['count'])
+            lut_vals[val]['area'] = float(lut_vals[val]['area'])
+
         rsgis_utils.writeDict2JSON(lut_vals, self.params['out_file'])
 
         #if os.path.exists(self.params['tmp_dir']):
