@@ -21,7 +21,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
             out_file = os.path.join(kwargs['out_path'], "{}_stats.json".format(tile_base_name))
             c_dict = dict()
             c_dict['img_tile'] = img_tile
-            c_dict['unq_vals'] = kwargs['unq_vals']
+            c_dict['unq_vals'] = unq_vals
             c_dict['roi_vec'] = kwargs['roi_vec']
             c_dict['roi_vec_lyr'] = kwargs['roi_vec_lyr']
             c_dict['roi_vec_col'] = kwargs['roi_vec_col']
