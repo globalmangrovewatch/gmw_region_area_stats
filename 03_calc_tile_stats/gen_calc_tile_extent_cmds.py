@@ -11,7 +11,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
     def gen_command_info(self, **kwargs):
         base_gpdf = geopandas.read_file(kwargs['roi_vec'], layer=kwargs['roi_vec_lyr'])
-        unq_vals = base_gpdf[kwargs['roi_vec_col']].unique()
+        unq_vals = list(base_gpdf[kwargs['roi_vec_col']].unique())
         base_gpdf = None
 
         rsgis_utils = rsgislib.RSGISPyUtils()
