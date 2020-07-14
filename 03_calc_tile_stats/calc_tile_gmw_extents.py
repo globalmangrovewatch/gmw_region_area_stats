@@ -54,8 +54,8 @@ class CalcTileGMWExtent(PBPTQProcessTool):
 
         rsgis_utils.writeDict2JSON(lut_vals, self.params['out_file'])
 
-        if os.path.exists(self.params['tmp_dir']):
-            shutil.rmtree(self.params['tmp_dir'])
+        #if os.path.exists(self.params['tmp_dir']):
+        #    shutil.rmtree(self.params['tmp_dir'])
 
     def required_fields(self, **kwargs):
         return ["img_tile", "unq_vals", "roi_vec", "roi_vec_lyr", "roi_vec_col", "out_file", "tmp_dir"]

@@ -11,7 +11,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
     def gen_command_info(self, **kwargs):
         base_gpdf = geopandas.read_file(kwargs['roi_vec'], layer=kwargs['roi_vec_lyr'])
-        unq_vals = list(base_gpdf[kwargs['roi_vec_col']].unique())
+        unq_vals = base_gpdf[kwargs['roi_vec_col']].unique().tolist() 
         base_gpdf = None
 
         rsgis_utils = rsgislib.RSGISPyUtils()
@@ -27,6 +27,8 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
             c_dict['roi_vec_col'] = kwargs['roi_vec_col']
             c_dict['out_file'] = out_file
             c_dict['tmp_dir'] = os.path.join(kwargs['tmp_dir'], "{}_tiles_stats".format(tile_base_name))
+            if not os.path.exists(c_dict['tmp_dir']):
+                os.mkdir(c_dict['tmp_dir'])
             self.params.append(c_dict)
 
     def run_gen_commands(self):
