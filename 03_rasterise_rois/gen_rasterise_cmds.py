@@ -3,7 +3,6 @@ import rsgislib
 import logging
 import os
 import glob
-import geopandas
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +38,13 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_lyr='National',
                               roi_vec_col='unqid',
                               out_roi_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles')
+
+        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
+                              tile_name_rm='_gmw2010v2.0',
+                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
+                              roi_vec_lyr='polys',
+                              roi_vec_col='unqid',
+                              out_roi_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles')
 
         self.pop_params_db()
         self.create_slurm_sub_sh("gmw_tiles_stats", 8224, '/scratch/a.pfb/gmw_calc_region_area_stats/logs',
