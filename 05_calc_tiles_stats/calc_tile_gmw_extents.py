@@ -10,19 +10,19 @@ logger = logging.getLogger(__name__)
 def calc_unq_val_pxl_areas(pix_area_img, uid_img, unq_val_area_lut):
     img_uid_ds = gdal.Open(uid_img)
     if img_uid_ds is None:
-        raise Exception("Could not open the UID input image.")
+        raise Exception("Could not open the UID input image: '{}'".format(uid_img))
     img_uid_band = img_uid_ds.GetRasterBand(1)
     if img_uid_band is None:
-        raise Exception("Failed to read the UID image band.")
+        raise Exception("Failed to read the UID image band: '{}'".format(uid_img))
     uid_arr = img_uid_band.ReadAsArray()
     img_uid_ds = None
 
     img_pixarea_ds = gdal.Open(pix_area_img)
     if img_pixarea_ds is None:
-        raise Exception("Could not open the pixel area input image.")
+        raise Exception("Could not open the pixel area input image: '{}'".format(pix_area_img))
     img_pixarea_band = img_pixarea_ds.GetRasterBand(1)
     if img_pixarea_band is None:
-        raise Exception("Failed to read the pixel area image band.")
+        raise Exception("Failed to read the pixel area image band: '{}'".format(pix_area_img))
     pxl_area_arr = img_pixarea_band.ReadAsArray()
     img_pixarea_ds = None
 
