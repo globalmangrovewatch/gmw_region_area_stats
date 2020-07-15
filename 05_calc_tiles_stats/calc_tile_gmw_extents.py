@@ -7,7 +7,7 @@ import osgeo.gdal as gdal
 
 logger = logging.getLogger(__name__)
 
-def calc_unq_val_pxl_areas(pix_area_img, uid_img, unq_val_area_lut):
+def calc_unq_val_pxl_areas(pix_area_img, uid_img, gmw_img, unq_val_area_lut):
     img_uid_ds = gdal.Open(uid_img)
     if img_uid_ds is None:
         raise Exception("Could not open the UID input image: '{}'".format(uid_img))
@@ -26,14 +26,22 @@ def calc_unq_val_pxl_areas(pix_area_img, uid_img, unq_val_area_lut):
     pxl_area_arr = img_pixarea_band.ReadAsArray()
     img_pixarea_ds = None
 
+    img_gmw_ds = gdal.Open(gmw_img)
+    if img_gmw_ds is None:
+        raise Exception("Could not open the GMW input image: '{}'".format(gmw_img))
+    img_gmw_band = img_gmw_ds.GetRasterBand(1)
+    if img_gmw_band is None:
+        raise Exception("Failed to read the GMW image band: '{}'".format(gmw_img))
+    gmw_arr = img_gmw_band.ReadAsArray()
+    img_gmw_ds = None
+
     unq_pix_vals = numpy.unique(uid_arr)
 
     for unq_val in unq_pix_vals:
         if unq_val != 0:
             msk = numpy.zeros_like(uid_arr, dtype=bool)
-            msk[numpy.logical_and(uid_arr == unq_val, uid_arr > 0)] = True
+            msk[numpy.logical_and(uid_arr == unq_val, uid_arr > 0, gmw_arr == 1)] = True
 
-            unq_val_area_lut[unq_val] = dict()
             unq_val_area_lut[unq_val]['count'] = numpy.sum(msk)
             unq_val_area_lut[unq_val]['area'] = numpy.sum(pxl_area_arr[msk])
 
@@ -53,7 +61,7 @@ class CalcTileGMWExtent(PBPTQProcessTool):
             lut_vals[val]['count'] = 0
             lut_vals[val]['area'] = 0.0
 
-        calc_unq_val_pxl_areas(self.params['tile_pxa_img'], self.params['tile_roi_img'], lut_vals)
+        calc_unq_val_pxl_areas(self.params['tile_pxa_img'], self.params['tile_roi_img'], self.params['img_tile'], lut_vals)
 
         for val in unq_vals:
             lut_vals[val]['count'] = int(lut_vals[val]['count'])
