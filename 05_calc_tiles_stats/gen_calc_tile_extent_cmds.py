@@ -39,7 +39,6 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
     def run_gen_commands(self):
         # Country Statistics
-        """
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw1996v2.0/*.tif',
                               tile_name_rm='_gmw1996v2.0',
                               roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
@@ -109,7 +108,6 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
                               unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2016_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2016')
-        """
 
         # WDPA Statistics
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw1996v2.0/*.tif',
