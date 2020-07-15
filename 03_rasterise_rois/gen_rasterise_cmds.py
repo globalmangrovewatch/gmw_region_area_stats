@@ -16,13 +16,14 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
             tile_base_name = rsgis_utils.get_file_basename(img_tile, checkvalid=False)
             tile_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
             out_roi_file = os.path.join(kwargs['out_roi_path'], "{}_roi.kea".format(tile_base_name))
-            c_dict = dict()
-            c_dict['img_tile'] = img_tile
-            c_dict['roi_vec'] = kwargs['roi_vec']
-            c_dict['roi_vec_lyr'] = kwargs['roi_vec_lyr']
-            c_dict['roi_vec_col'] = kwargs['roi_vec_col']
-            c_dict['tile_roi_img'] = out_roi_file
-            self.params.append(c_dict)
+            if not os.path.exists(out_roi_file):
+                c_dict = dict()
+                c_dict['img_tile'] = img_tile
+                c_dict['roi_vec'] = kwargs['roi_vec']
+                c_dict['roi_vec_lyr'] = kwargs['roi_vec_lyr']
+                c_dict['roi_vec_col'] = kwargs['roi_vec_col']
+                c_dict['tile_roi_img'] = out_roi_file
+                self.params.append(c_dict)
 
     def run_gen_commands(self):
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',

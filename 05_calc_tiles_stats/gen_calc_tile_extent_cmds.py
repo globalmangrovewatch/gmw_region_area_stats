@@ -18,21 +18,23 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         img_tiles = glob.glob(kwargs['img_tiles'])
         for img_tile in img_tiles:
             tile_base_name = rsgis_utils.get_file_basename(img_tile, checkvalid=False)
-            tile_generic_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
-            tile_roi_img = os.path.join(kwargs['roi_img_path'], "{}_roi.kea".format(tile_generic_base_name))
-            if not os.path.exists(tile_roi_img):
-                raise Exception("Could not file ROI image file: {}".format(tile_roi_img))
-            tile_pxa_img = os.path.join(kwargs['pxa_img_path'], "{}_pxa.kea".format(tile_generic_base_name))
-            if not os.path.exists(tile_pxa_img):
-                raise Exception("Could not file Pixel Area image file: {}".format(tile_pxa_img))
             out_file = os.path.join(kwargs['out_path'], "{}_stats.json".format(tile_base_name))
-            c_dict = dict()
-            c_dict['img_tile'] = img_tile
-            c_dict['unq_vals'] = unq_vals
-            c_dict['tile_pxa_img'] = tile_pxa_img
-            c_dict['tile_roi_img'] = tile_roi_img
-            c_dict['out_file'] = out_file
-            self.params.append(c_dict)
+            if not os.path.exists(out_file):
+                tile_generic_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
+                tile_roi_img = os.path.join(kwargs['roi_img_path'], "{}_roi.kea".format(tile_generic_base_name))
+                if not os.path.exists(tile_roi_img):
+                    raise Exception("Could not file ROI image file: {}".format(tile_roi_img))
+                tile_pxa_img = os.path.join(kwargs['pxa_img_path'], "{}_pxa.kea".format(tile_generic_base_name))
+                if not os.path.exists(tile_pxa_img):
+                    raise Exception("Could not file Pixel Area image file: {}".format(tile_pxa_img))
+
+                c_dict = dict()
+                c_dict['img_tile'] = img_tile
+                c_dict['unq_vals'] = unq_vals
+                c_dict['tile_pxa_img'] = tile_pxa_img
+                c_dict['tile_roi_img'] = tile_roi_img
+                c_dict['out_file'] = out_file
+                self.params.append(c_dict)
 
     def run_gen_commands(self):
 
