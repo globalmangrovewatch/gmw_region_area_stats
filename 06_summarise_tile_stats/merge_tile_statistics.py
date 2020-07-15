@@ -4,7 +4,7 @@ import tqdm
 import rsgislib
 import pandas
 
-def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_feather=None, out_excel=None, excel_sheet=None):
+def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_feather=None, out_excel=None, excel_sheet=None, out_csv=None):
     rsgis_utils = rsgislib.RSGISPyUtils()
     tile_files = glob.glob(os.path.join(tile_stats_dir, "*.json"))
     first = True
@@ -25,7 +25,7 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
 
     rsgis_utils.writeDict2JSON(combined_stats, out_json_file)
 
-    if (out_feather is not None) or (out_excel is not None):
+    if (out_feather is not None) or (out_excel is not None) or (out_csv is not None):
         df_dict = dict()
         df_dict['uid'] = list()
         df_dict['count'] = list()
@@ -49,6 +49,8 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             df_stats.to_excel(out_excel, excel_sheet)
         if out_feather is not None:
             df_stats.to_feather(out_feather)
+        if out_csv is not None:
+            df_stats.to_csv(out_csv)
 
 
 if __name__ == "__main__":
@@ -59,10 +61,11 @@ if __name__ == "__main__":
     parser.add_argument("--lutfile", type=str, required=False, help="Optional. LUT file can be provided to populated into the excel or feather files.")
     parser.add_argument("--excel", type=str, required=False, help="Optional. Output Excel file (.xlsx).")
     parser.add_argument("--sheet", type=str, required=False, help="Optional. Name for sheet in the Excel file.")
+    parser.add_argument("--csv", type=str, required=False, help="Optional. Output CSV file.")
     parser.add_argument("--feather", type=str, required=False, help="Optional. Output feather file for saving the pandas dataframe.")
 
     args = parser.parse_args()
-    merge_gmw_tile_stats(args.indir, args.outfile, uid_lut_file=args.lutfile, out_feather=args.feather, out_excel=args.excel, excel_sheet=args.sheet)
+    merge_gmw_tile_stats(args.indir, args.outfile, uid_lut_file=args.lutfile, out_feather=args.feather, out_excel=args.excel, excel_sheet=args.sheet, out_csv=args.csv)
 
 
 
