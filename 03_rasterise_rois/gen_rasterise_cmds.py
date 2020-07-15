@@ -21,7 +21,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
             c_dict['roi_vec'] = kwargs['roi_vec']
             c_dict['roi_vec_lyr'] = kwargs['roi_vec_lyr']
             c_dict['roi_vec_col'] = kwargs['roi_vec_col']
-            c_dict['out_file'] = out_roi_file
+            c_dict['tile_roi_img'] = out_roi_file
             self.params.append(c_dict)
 
     def run_gen_commands(self):
