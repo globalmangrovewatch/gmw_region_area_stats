@@ -102,7 +102,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2016')
         """
-        
+
         # WDPA Statistics
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw1996v2.0/*.tif',
                               tile_name_rm='_gmw1996v2.0',

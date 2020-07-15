@@ -19,11 +19,12 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
                     combined_stats[uid]['count'] += tile_stats_dict[uid]['count']
                     combined_stats[uid]['area'] += tile_stats_dict[uid]['area']
 
+    combined_stats_vld = dict()
     for uid in combined_stats:
-        if combined_stats[uid]['count'] == 0:
-            combined_stats.pop(uid)
+        if combined_stats[uid]['count'] > 0:
+            combined_stats_vld[uid] = combined_stats[uid]
 
-    rsgis_utils.writeDict2JSON(combined_stats, out_json_file)
+    rsgis_utils.writeDict2JSON(combined_stats_vld, out_json_file)
 
     if (out_feather is not None) or (out_excel is not None) or (out_csv is not None):
         df_dict = dict()
@@ -35,10 +36,11 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             uid_lut_dict = rsgis_utils.readJSON2Dict(uid_lut_file)
             df_dict['region'] = list()
 
-        for uid in combined_stats:
+
+        for uid in combined_stats_vld:
             df_dict['uid'].append(uid)
-            df_dict['count'].append(combined_stats[uid]['count'])
-            df_dict['area'].append(combined_stats[uid]['area'])
+            df_dict['count'].append(combined_stats_vld[uid]['count'])
+            df_dict['area'].append(combined_stats_vld[uid]['area'])
             if uid_lut_file is not None:
                 df_dict['region'].append(uid_lut_dict['id'][uid])
 
