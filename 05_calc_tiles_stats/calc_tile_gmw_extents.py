@@ -1,10 +1,7 @@
 from pbprocesstools.pbpt_q_process import PBPTQProcessTool
 import logging
 import os
-import shutil
 import rsgislib
-import rsgislib.imagecalc
-import rsgislib.vectorutils
 import numpy
 import osgeo.gdal as gdal
 
@@ -47,37 +44,24 @@ class CalcTileGMWExtent(PBPTQProcessTool):
         super().__init__(cmd_name='gen_calc_tile_extent_cmds.py', descript=None)
 
     def do_processing(self, **kwargs):
-        rsgis_utils = rsgislib.RSGISPyUtils()
-        tile_base_name = rsgis_utils.get_file_basename(self.params['img_tile'], checkvalid=True)
-        pix_area_img = os.path.join(self.params['tmp_dir'], "{}_pix_area.kea".format(tile_base_name))
-        rsgislib.imagecalc.calcWSG84PixelArea(self.params['img_tile'], pix_area_img, scale=10000, gdalformat='KEA')
-
-        uid_img = os.path.join(self.params['tmp_dir'], "{}_uid.kea".format(tile_base_name))
-        rsgislib.vectorutils.rasteriseVecLyr(self.params['roi_vec'], self.params['roi_vec_lyr'],
-                                             self.params['img_tile'], uid_img, gdalformat="KEA",
-                                             burnVal=1, datatype=rsgislib.TYPE_16UINT,
-                                             vecAtt=self.params['roi_vec_col'],
-                                             vecExt=False, thematic=True, nodata=0)
-
         lut_vals = dict()
         for val in self.params['unq_vals']:
             lut_vals[val] = dict()
             lut_vals[val]['count'] = 0
             lut_vals[val]['area'] = 0.0
 
-        calc_unq_val_pxl_areas(pix_area_img, uid_img, lut_vals)
+        calc_unq_val_pxl_areas(self.params['tile_pxa_img'], self.params['tile_roi_img'], lut_vals)
 
         for val in self.params['unq_vals']:
             lut_vals[val]['count'] = int(lut_vals[val]['count'])
             lut_vals[val]['area'] = float(lut_vals[val]['area'])
 
+        rsgis_utils = rsgislib.RSGISPyUtils()
         rsgis_utils.writeDict2JSON(lut_vals, self.params['out_file'])
 
-        if os.path.exists(self.params['tmp_dir']):
-            shutil.rmtree(self.params['tmp_dir'])
 
     def required_fields(self, **kwargs):
-        return ["img_tile", "unq_vals", "roi_vec", "roi_vec_lyr", "roi_vec_col", "out_file", "tmp_dir"]
+        return ["img_tile", "unq_vals", "tile_pxa_img", "tile_roi_img", "out_file",]
 
     def outputs_present(self, **kwargs):
         return os.path.exists(self.params['out_file']), dict()
