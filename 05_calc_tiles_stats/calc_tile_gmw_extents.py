@@ -46,7 +46,7 @@ class CalcTileGMWExtent(PBPTQProcessTool):
     def do_processing(self, **kwargs):
         rsgis_utils = rsgislib.RSGISPyUtils()
         unq_vals = rsgis_utils.readJSON2Dict(self.params['unq_vals_file'])
-        
+
         lut_vals = dict()
         for val in unq_vals:
             lut_vals[val] = dict()

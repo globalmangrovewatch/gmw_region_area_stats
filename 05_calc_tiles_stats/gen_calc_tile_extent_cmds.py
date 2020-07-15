@@ -149,7 +149,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_20109_unqvals.json',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2009_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2009')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
