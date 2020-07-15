@@ -43,14 +43,15 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
                 df_dict['region'].append(uid_lut_dict['id'][uid])
 
         df_stats = pandas.DataFrame.from_dict(df_dict)
-        if out_excel is not None:
-            if excel_sheet is None:
-                excel_sheet = 'gmw_stats'
-            df_stats.to_excel(out_excel, excel_sheet)
         if out_feather is not None:
             df_stats.to_feather(out_feather)
         if out_csv is not None:
             df_stats.to_csv(out_csv)
+        if out_excel is not None:
+            if excel_sheet is None:
+                excel_sheet = 'gmw_stats'
+            df_stats.to_excel(out_excel, sheet_name=excel_sheet)
+
 
 
 if __name__ == "__main__":
