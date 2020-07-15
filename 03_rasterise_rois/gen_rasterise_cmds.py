@@ -27,10 +27,18 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
     def run_gen_commands(self):
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
                               tile_name_rm='_gmw2010v2.0',
+                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_subset_UnqID.gpkg',
+                              roi_vec_lyr='National',
+                              roi_vec_col='unqid',
+                              out_roi_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_sub_roi_tiles')
+
+        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
+                              tile_name_rm='_gmw2010v2.0',
                               roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
                               roi_vec_lyr='National',
                               roi_vec_col='unqid',
                               out_roi_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles')
+
         self.pop_params_db()
         self.create_slurm_sub_sh("gmw_tiles_stats", 8224, '/scratch/a.pfb/gmw_calc_region_area_stats/logs',
                                  run_script='run_exe_analysis.sh', job_dir="job_scripts",
