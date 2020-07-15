@@ -38,13 +38,12 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
                               tile_name_rm='_gmw2010v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
+                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_subset_UnqID.gpkg',
                               roi_vec_lyr='National',
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_sub_roi_tiles',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/tile_stats/2010',
-                              tmp_dir='/scratch/a.pfb/gmw_calc_region_area_stats/tmp')
+                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_sub_stats/tile_stats/2010')
 
         self.pop_params_db()
         self.create_slurm_sub_sh("gmw_tiles_stats", 8224, '/scratch/a.pfb/gmw_calc_region_area_stats/logs',
