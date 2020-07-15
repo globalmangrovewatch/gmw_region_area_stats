@@ -37,8 +37,8 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
 
         for uid in combined_stats:
             df_dict['uid'].append(uid)
-            df_dict['count'].append(combined_stats['uid']['count'])
-            df_dict['area'].append(combined_stats['uid']['area'])
+            df_dict['count'].append(combined_stats[uid]['count'])
+            df_dict['area'].append(combined_stats[uid]['area'])
             if uid_lut_file is not None:
                 df_dict['region'].append(uid_lut_dict['id'][uid])
 
