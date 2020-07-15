@@ -44,15 +44,18 @@ class CalcTileGMWExtent(PBPTQProcessTool):
         super().__init__(cmd_name='gen_calc_tile_extent_cmds.py', descript=None)
 
     def do_processing(self, **kwargs):
+        rsgis_utils = rsgislib.RSGISPyUtils()
+        unq_vals = rsgis_utils.readJSON2Dict(self.params['unq_vals_file'])
+        
         lut_vals = dict()
-        for val in self.params['unq_vals']:
+        for val in unq_vals:
             lut_vals[val] = dict()
             lut_vals[val]['count'] = 0
             lut_vals[val]['area'] = 0.0
 
         calc_unq_val_pxl_areas(self.params['tile_pxa_img'], self.params['tile_roi_img'], lut_vals)
 
-        for val in self.params['unq_vals']:
+        for val in unq_vals:
             lut_vals[val]['count'] = int(lut_vals[val]['count'])
             lut_vals[val]['area'] = float(lut_vals[val]['area'])
 
@@ -61,7 +64,7 @@ class CalcTileGMWExtent(PBPTQProcessTool):
 
 
     def required_fields(self, **kwargs):
-        return ["img_tile", "unq_vals", "tile_pxa_img", "tile_roi_img", "out_file",]
+        return ["img_tile", "unq_vals_file", "tile_pxa_img", "tile_roi_img", "out_file",]
 
     def outputs_present(self, **kwargs):
         return os.path.exists(self.params['out_file']), dict()

@@ -10,11 +10,12 @@ logger = logging.getLogger(__name__)
 class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
     def gen_command_info(self, **kwargs):
+        rsgis_utils = rsgislib.RSGISPyUtils()
         base_gpdf = geopandas.read_file(kwargs['roi_vec'], layer=kwargs['roi_vec_lyr'])
         unq_vals = base_gpdf[kwargs['roi_vec_col']].unique().tolist() 
         base_gpdf = None
+        rsgis_utils.writeDict2JSON(unq_vals, kwargs['unq_vals_file'])
 
-        rsgis_utils = rsgislib.RSGISPyUtils()
         img_tiles = glob.glob(kwargs['img_tiles'])
         for img_tile in img_tiles:
             tile_base_name = rsgis_utils.get_file_basename(img_tile, checkvalid=False)
@@ -30,7 +31,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
                 c_dict = dict()
                 c_dict['img_tile'] = img_tile
-                c_dict['unq_vals'] = unq_vals
+                c_dict['unq_vals_file'] = kwargs['unq_vals_file']
                 c_dict['tile_pxa_img'] = tile_pxa_img
                 c_dict['tile_roi_img'] = tile_roi_img
                 c_dict['out_file'] = out_file
@@ -46,6 +47,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_1996_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/1996')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2007v2.0/*.tif',
@@ -55,6 +57,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2007_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2007')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2008v2.0/*.tif',
@@ -64,6 +67,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2008_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2008')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2009v2.0/*.tif',
@@ -73,6 +77,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2009_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2009')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
@@ -82,6 +87,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2010_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2010')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2015v2.0/*.tif',
@@ -91,6 +97,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2015_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2015')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2016v2.0/*.tif',
@@ -100,6 +107,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2016_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2016')
         """
 
@@ -111,6 +119,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_1996_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/1996')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2007v2.0/*.tif',
@@ -120,6 +129,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2007_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2007')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2008v2.0/*.tif',
@@ -129,6 +139,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2008_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2008')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2009v2.0/*.tif',
@@ -138,6 +149,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_20109_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2009')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
@@ -147,6 +159,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2010_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2010')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2015v2.0/*.tif',
@@ -156,6 +169,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2015_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2015')
 
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2016v2.0/*.tif',
@@ -165,6 +179,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_col='unqid',
                               pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2016_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2016')
 
         self.pop_params_db()
