@@ -34,13 +34,13 @@ def calc_unq_val_pxl_areas(pix_area_img, uid_img, gmw_img, unq_val_area_lut):
         raise Exception("Failed to read the GMW image band: '{}'".format(gmw_img))
     gmw_arr = img_gmw_band.ReadAsArray()
     img_gmw_ds = None
-
+    
     unq_pix_vals = numpy.unique(uid_arr)
 
     for unq_val in unq_pix_vals:
         if unq_val != 0:
             msk = numpy.zeros_like(uid_arr, dtype=bool)
-            msk[numpy.logical_and(uid_arr == unq_val, uid_arr > 0, gmw_arr == 1)] = True
+            msk[(uid_arr == unq_val) & (uid_arr > 0) & (gmw_arr == 1)] = True
 
             unq_val_area_lut[unq_val]['count'] = numpy.sum(msk)
             unq_val_area_lut[unq_val]['area'] = numpy.sum(pxl_area_arr[msk])
