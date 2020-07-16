@@ -1,5 +1,6 @@
 from pbprocesstools.pbpt_q_process import PBPTQProcessTool
 import logging
+import os
 import rsgislib
 import rsgislib.imagecalc
 import rsgislib.vectorutils
@@ -25,6 +26,10 @@ class RasteriseStatsROIs(PBPTQProcessTool):
         files_dict = dict()
         files_dict[self.params['tile_roi_img']] = 'gdal_image'
         return self.check_files(files_dict)
+
+    def remove_outputs(self, **kwargs):
+        if os.path.exists(self.params['tile_roi_img']):
+            os.remove(self.params['tile_roi_img'])
 
 if __name__ == "__main__":
     RasteriseStatsROIs().std_run()

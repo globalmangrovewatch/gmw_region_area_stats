@@ -70,12 +70,15 @@ class CalcTileGMWExtent(PBPTQProcessTool):
         rsgis_utils = rsgislib.RSGISPyUtils()
         rsgis_utils.writeDict2JSON(lut_vals, self.params['out_file'])
 
-
     def required_fields(self, **kwargs):
         return ["img_tile", "unq_vals_file", "tile_pxa_img", "tile_roi_img", "out_file",]
 
     def outputs_present(self, **kwargs):
         return os.path.exists(self.params['out_file']), dict()
+
+    def remove_outputs(self, **kwargs):
+        if os.path.exists(self.params['out_file']):
+            os.remove(self.params['out_file'])
 
 if __name__ == "__main__":
     CalcTileGMWExtent().std_run()

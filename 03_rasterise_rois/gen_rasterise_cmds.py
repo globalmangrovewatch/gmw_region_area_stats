@@ -61,6 +61,11 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         out_non_comp_file = 'non_complete_errs_{}.txt'.format(time_sample_str)
         self.check_job_outputs(process_tools_mod, process_tools_cls, out_err_file, out_non_comp_file)
 
+    def run_remove_outputs(self, all_jobs=False, error_jobs=False):
+        process_tools_mod = 'rasterise_roi'
+        process_tools_cls = 'RasteriseStatsROIs'
+        self.remove_job_outputs(process_tools_mod, process_tools_cls, all_jobs, error_jobs)
+
 
 if __name__ == "__main__":
     py_script = os.path.abspath("rasterise_roi.py")
