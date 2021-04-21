@@ -22,7 +22,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
             out_file = os.path.join(kwargs['out_path'], "{}_stats.json".format(tile_base_name))
             if not os.path.exists(out_file):
                 tile_generic_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
-                tile_roi_img = os.path.join(kwargs['roi_img_path'], "{}_roi.kea".format(tile_generic_base_name))
+                tile_roi_img = os.path.join(kwargs['roi_img_path'], "{}_roi_{}.kea".format(tile_generic_base_name, kwargs['roi_name']))
                 if not os.path.exists(tile_roi_img):
                     raise Exception("Could not file ROI image file: {}".format(tile_roi_img))
                 tile_pxa_img = os.path.join(kwargs['pxa_img_path'], "{}_pxa.kea".format(tile_generic_base_name))
@@ -38,6 +38,32 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                 self.params.append(c_dict)
 
     def run_gen_commands(self):
+        # Country Statistics
+        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
+                              tile_name_rm='_tile_gmw_v3_init_qad',
+                              roi_name='countries',
+                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
+                              roi_vec_lyr='National',
+                              roi_vec_col='unqid',
+                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
+                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2010_v3_unqvals.json',
+                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2010_v3')
+
+        # WDPA Statistics
+        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
+                              tile_name_rm='_tile_gmw_v3_init_qad',
+                              roi_name='ramsar',
+                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
+                              roi_vec_lyr='polys',
+                              roi_vec_col='unqid',
+                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
+                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
+                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2010_v3_unqvals.json',
+                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2010_v3')
+
+
+        """
         # Country Statistics
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw1996v2.0/*.tif',
                               tile_name_rm='_gmw1996v2.0',
@@ -179,7 +205,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
                               unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2016_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2016')
-
+        """
         self.pop_params_db()
         self.create_slurm_sub_sh("gmw_tiles_stats", 8224, '/scratch/a.pfb/gmw_calc_region_area_stats/logs',
                                  run_script='run_exe_analysis.sh', job_dir="job_scripts",
@@ -187,22 +213,14 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                                  job_time_limit='2-23:59',
                                  module_load='module load parallel singularity\n\nexport http_proxy="http://a.pfb:proxy101019@10.212.63.246:3128"\nexport https_proxy="http://a.pfb:proxy101019@10.212.63.246:3128"\n')
 
-    def run_check_outputs(self):
-        process_tools_mod = 'calc_tile_gmw_extents'
-        process_tools_cls = 'CalcTileGMWExtent'
-        time_sample_str = self.generate_readable_timestamp_str()
-        out_err_file = 'processing_errs_{}.txt'.format(time_sample_str)
-        out_non_comp_file = 'non_complete_errs_{}.txt'.format(time_sample_str)
-        self.check_job_outputs(process_tools_mod, process_tools_cls, out_err_file, out_non_comp_file)
-
-    def run_remove_outputs(self, all_jobs=False, error_jobs=False):
-        process_tools_mod = 'calc_tile_gmw_extents'
-        process_tools_cls = 'CalcTileGMWExtent'
-        self.remove_job_outputs(process_tools_mod, process_tools_cls, all_jobs, error_jobs)
-
 if __name__ == "__main__":
     py_script = os.path.abspath("calc_tile_gmw_extents.py")
     script_cmd = "singularity exec --bind /scratch/a.pfb:/scratch/a.pfb --bind /home/a.pfb:/home/a.pfb /scratch/a.pfb/sw_imgs/au-eoed-dev.sif python {}".format(py_script)
 
-    create_tools = GenTileExtentCmds(cmd=script_cmd, sqlite_db_file="gmw_tile_stats.db")
+    process_tools_mod = 'calc_tile_gmw_extents'
+    process_tools_cls = 'CalcTileGMWExtent'
+
+    create_tools = GenTileExtentCmds(cmd=script_cmd, db_conn_file="/home/a.pfb/gmw_gap_fill_db/pbpt_db_conn.txt",
+                                         lock_file_path="./gmw_stats_lock_file.txt",
+                                         process_tools_mod=process_tools_mod, process_tools_cls=process_tools_cls)
     create_tools.parse_cmds()

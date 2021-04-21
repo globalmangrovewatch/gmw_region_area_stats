@@ -23,8 +23,8 @@ class GenTilePixAreaCmds(PBPTGenQProcessToolCmds):
                 self.params.append(c_dict)
 
     def run_gen_commands(self):
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
-                              tile_name_rm='_gmw2010v2.0',
+        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
+                              tile_name_rm='_tile_gmw_v3_init_qad',
                               out_pxa_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles')
         self.pop_params_db()
         self.create_slurm_sub_sh("gmw_tiles_pxa", 8224, '/scratch/a.pfb/gmw_calc_region_area_stats/logs',
@@ -33,22 +33,14 @@ class GenTilePixAreaCmds(PBPTGenQProcessToolCmds):
                                  job_time_limit='2-23:59',
                                  module_load='module load parallel singularity\n\nexport http_proxy="http://a.pfb:proxy101019@10.212.63.246:3128"\nexport https_proxy="http://a.pfb:proxy101019@10.212.63.246:3128"\n')
 
-    def run_check_outputs(self):
-        process_tools_mod = 'calc_pixel_area'
-        process_tools_cls = 'CalcPixelArea'
-        time_sample_str = self.generate_readable_timestamp_str()
-        out_err_file = 'processing_errs_{}.txt'.format(time_sample_str)
-        out_non_comp_file = 'non_complete_errs_{}.txt'.format(time_sample_str)
-        self.check_job_outputs(process_tools_mod, process_tools_cls, out_err_file, out_non_comp_file)
-
-    def run_remove_outputs(self, all_jobs=False, error_jobs=False):
-        process_tools_mod = 'calc_pixel_area'
-        process_tools_cls = 'CalcPixelArea'
-        self.remove_job_outputs(process_tools_mod, process_tools_cls, all_jobs, error_jobs)
-
 if __name__ == "__main__":
     py_script = os.path.abspath("calc_pixel_area.py")
     script_cmd = "singularity exec --bind /scratch/a.pfb:/scratch/a.pfb --bind /home/a.pfb:/home/a.pfb /scratch/a.pfb/sw_imgs/au-eoed-dev.sif python {}".format(py_script)
 
-    create_tools = GenTilePixAreaCmds(cmd=script_cmd, sqlite_db_file="gmw_tile_pix_area.db")
+    process_tools_mod = 'calc_pixel_area'
+    process_tools_cls = 'CalcPixelArea'
+
+    create_tools = GenTilePixAreaCmds(cmd=script_cmd, db_conn_file="/home/a.pfb/gmw_gap_fill_db/pbpt_db_conn.txt",
+                                         lock_file_path="./gmw_stats_lock_file.txt",
+                                         process_tools_mod=process_tools_mod, process_tools_cls=process_tools_cls)
     create_tools.parse_cmds()
