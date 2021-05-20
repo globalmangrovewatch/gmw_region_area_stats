@@ -5,7 +5,7 @@ import pandas
 def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None, out_excel=None, excel_sheet=None, out_csv=None):
     rsgis_utils = rsgislib.RSGISPyUtils()
     country_names_luts = rsgis_utils.readJSON2Dict(country_names_lut_file)
-    years = ['1996', '2007', '2008', '2009', '2010', '2015', '2016']
+    years = ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']
     year_info = dict()
     comb_df = None
     for year in years:
@@ -30,8 +30,9 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
         comb_df['name'] = cnty_lst
 
         comb_df = comb_df[['region', 'name', '1996_count', '2007_count', '2008_count', '2009_count', '2010_count',
-                           '2015_count', '2016_count', '1996_area', '2007_area', '2008_area', '2009_area',
-                           '2010_area', '2015_area', '2016_area']]
+                           '2015_count', '2016_count', '2017_count', '2018_count', '2019_count', '2020_count',
+                           '1996_area', '2007_area', '2008_area', '2009_area', '2010_area', '2015_area', '2016_area',
+                           '2017_area', '2018_area', '2019_area', '2020_area']]
 
         comb_df = comb_df.sort_values(by=['name']).reset_index()
         comb_df = comb_df.drop(['index'], axis=1)
@@ -48,10 +49,10 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
 
 
 
-input_pd_files = glob.glob("/Users/pete/Temp/gmw_calc_stats/national_stats/*.feather")
+input_pd_files = glob.glob("/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/national_stats/gmw_v3_fnl_*_country_stats.feather")
 country_names_lut_file = "../gadm_lut.json"
-out_feather="/Users/pete/Temp/gmw_calc_stats/national_stats.feather"
-out_excel="/Users/pete/Temp/gmw_calc_stats/national_stats.xlsx"
+out_feather="/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/national_stats/gmw_v3_summary/gmw_v3_national_stats.feather"
+out_excel="/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/national_stats/gmw_v3_summary/gmw_v3_national_stats.xlsx"
 excel_sheet=None
-out_csv="/Users/pete/Temp/gmw_calc_stats/national_stats.csv"
+out_csv="/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/national_stats/gmw_v3_summary/gmw_v3_national_stats.csv"
 merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
