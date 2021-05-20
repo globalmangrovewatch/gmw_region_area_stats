@@ -10,6 +10,8 @@ logger = logging.getLogger(__name__)
 class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
     def gen_command_info(self, **kwargs):
+        if not os.path.exists(kwargs['out_path']):
+            os.mkdir(kwargs['out_path'])
         rsgis_utils = rsgislib.RSGISPyUtils()
         base_gpdf = geopandas.read_file(kwargs['roi_vec'], layer=kwargs['roi_vec_lyr'])
         unq_vals = base_gpdf[kwargs['roi_vec_col']].unique().tolist() 
@@ -39,17 +41,19 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
     def run_gen_commands(self):
         # Country Statistics
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
-                              tile_name_rm='_tile_gmw_v3_init_qad',
-                              roi_name='countries',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                              roi_vec_lyr='National',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2010_v3_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2010_v3')
+        for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
+            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_{}_v3_fnl/*.kea'.format(year),
+                                  tile_name_rm='',
+                                  roi_name='countries',
+                                  roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
+                                  roi_vec_lyr='National',
+                                  roi_vec_col='unqid',
+                                  pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
+                                  roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_unqvals.json'.format(year),
+                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_{}_v3_fnl'.format(year))
 
+        """
         # WDPA Statistics
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
                               tile_name_rm='_tile_gmw_v3_init_qad',
@@ -62,7 +66,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2010_v3_unqvals.json',
                               out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2010_v3')
 
-
+        """
         """
         # Country Statistics
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw1996v2.0/*.tif',
