@@ -50,7 +50,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                                   roi_vec_col='unqid',
                                   pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                                   roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json',
+                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_mjr_unqvals.json'.format(year),
                                   out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_mjr_{}_v309'.format(year))
 
         for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
@@ -62,7 +62,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                                   roi_vec_col='unqid',
                                   pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                                   roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json',
+                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_min_unqvals.json'.format(year),
                                   out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_min_{}_v309'.format(year))
 
         for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
@@ -74,7 +74,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                                   roi_vec_col='unqid',
                                   pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                                   roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json',
+                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_max_unqvals.json'.format(year),
                                   out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_max_{}_v309'.format(year))
 
 
