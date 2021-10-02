@@ -55,7 +55,24 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             df_stats.to_excel(out_excel, sheet_name=excel_sheet)
 
 
+for lyr in ['mjr', 'min', 'max']:
+    out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_v309".format(lyr)
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
 
+    for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
+        merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_{}_{}_v309'.format(lyr, year),
+                             out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v309_country_stats.json".format(lyr, year)),
+                             uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
+                             out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v309_country_stats.feather".format(lyr, year)),
+                             out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v309_country_stats.xslx".format(lyr, year)),
+                             excel_sheet="{}_{}_v309".format(lyr, year),
+                             out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v309_country_stats.csv".format(lyr, year)),)
+
+
+
+
+""""
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
@@ -70,5 +87,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     merge_gmw_tile_stats(args.indir, args.outfile, uid_lut_file=args.lutfile, out_feather=args.feather, out_excel=args.excel, excel_sheet=args.sheet, out_csv=args.csv)
 
-
+"""
 
