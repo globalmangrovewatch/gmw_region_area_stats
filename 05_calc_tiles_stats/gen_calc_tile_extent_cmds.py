@@ -42,8 +42,8 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
     def run_gen_commands(self):
         # Country Statistics
         for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_{}_v3_fnl/*.kea'.format(year),
-                                  tile_name_rm='_{}_v3'.format(year),
+            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_v3_fnl_mjr_{}_v309/*.kea'.format(year),
+                                  tile_name_rm='_{}_mjr_v3_fnl'.format(year),
                                   roi_name='countries',
                                   roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
                                   roi_vec_lyr='National',
@@ -51,165 +51,33 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                                   pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                                   roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
                                   unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_unqvals.json'.format(year),
-                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_{}_v3_fnl'.format(year))
+                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_mjr_{}_v309'.format(year))
 
-        """
-        # WDPA Statistics
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
-                              tile_name_rm='_tile_gmw_v3_init_qad',
-                              roi_name='ramsar',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
-                              roi_vec_lyr='polys',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2010_v3_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2010_v3')
+        for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
+            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_v3_fnl_min_{}_v309/*.kea'.format(year),
+                                  tile_name_rm='_{}_min_v3_fnl'.format(year),
+                                  roi_name='countries',
+                                  roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
+                                  roi_vec_lyr='National',
+                                  roi_vec_col='unqid',
+                                  pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
+                                  roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_unqvals.json'.format(year),
+                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_min_{}_v309'.format(year))
 
-        """
-        """
-        # Country Statistics
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw1996v2.0/*.tif',
-                              tile_name_rm='_gmw1996v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                              roi_vec_lyr='National',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_1996_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/1996')
+        for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
+            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_v3_fnl_max_{}_v309/*.kea'.format(year),
+                                  tile_name_rm='_{}_max_v3_fnl'.format(year),
+                                  roi_name='countries',
+                                  roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
+                                  roi_vec_lyr='National',
+                                  roi_vec_col='unqid',
+                                  pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
+                                  roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
+                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_unqvals.json'.format(year),
+                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_max_{}_v309'.format(year))
 
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2007v2.0/*.tif',
-                              tile_name_rm='_gmw2007v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                              roi_vec_lyr='National',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2007_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2007')
 
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2008v2.0/*.tif',
-                              tile_name_rm='_gmw2008v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                              roi_vec_lyr='National',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2008_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2008')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2009v2.0/*.tif',
-                              tile_name_rm='_gmw2009v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                              roi_vec_lyr='National',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2009_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2009')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
-                              tile_name_rm='_gmw2010v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                              roi_vec_lyr='National',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2010_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2010')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2015v2.0/*.tif',
-                              tile_name_rm='_gmw2015v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                              roi_vec_lyr='National',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2015_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2015')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2016v2.0/*.tif',
-                              tile_name_rm='_gmw2016v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                              roi_vec_lyr='National',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_2016_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/2016')
-
-        # WDPA Statistics
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw1996v2.0/*.tif',
-                              tile_name_rm='_gmw1996v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
-                              roi_vec_lyr='polys',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_1996_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/1996')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2007v2.0/*.tif',
-                              tile_name_rm='_gmw2007v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
-                              roi_vec_lyr='polys',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2007_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2007')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2008v2.0/*.tif',
-                              tile_name_rm='_gmw2008v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
-                              roi_vec_lyr='polys',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2008_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2008')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2009v2.0/*.tif',
-                              tile_name_rm='_gmw2009v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
-                              roi_vec_lyr='polys',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2009_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2009')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2010v2.0/*.tif',
-                              tile_name_rm='_gmw2010v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
-                              roi_vec_lyr='polys',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2010_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2010')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2015v2.0/*.tif',
-                              tile_name_rm='_gmw2015v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
-                              roi_vec_lyr='polys',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2015_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2015')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_calc_region_area_stats/data/gmw_tiles_v2/gmw2016v2.0/*.tif',
-                              tile_name_rm='_gmw2016v2.0',
-                              roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/wdpa_july2020_regions_ramsar_UnqID.gpkg',
-                              roi_vec_lyr='polys',
-                              roi_vec_col='unqid',
-                              pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                              roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles',
-                              unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/wdpa_ramsar_roi_tiles_2016_unqvals.json',
-                              out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/wdpa_ramsar_stats/tile_stats/2016')
-        """
         self.pop_params_db()
         self.create_slurm_sub_sh("gmw_tiles_stats", 8224, '/scratch/a.pfb/gmw_calc_region_area_stats/logs',
                                  run_script='run_exe_analysis.sh', job_dir="job_scripts",
