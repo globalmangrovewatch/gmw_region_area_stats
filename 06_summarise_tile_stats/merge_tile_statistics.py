@@ -85,7 +85,9 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
         if out_excel is not None:
             if excel_sheet is None:
                 excel_sheet = 'gmw_stats'
-            df_stats.to_excel(out_excel, sheet_name=excel_sheet)
+            xls_writer = pandas.ExcelWriter(out_excel, engine='xlsxwriter')
+            df_stats.to_excel(xls_writer, sheet_name=excel_sheet)
+            xls_writer.save()
 
 
 for lyr in ['mjr', 'min', 'max']:
