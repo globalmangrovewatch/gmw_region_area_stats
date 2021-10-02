@@ -1,15 +1,48 @@
 import glob
 import os
 import tqdm
-import rsgislib
 import pandas
 
+def readJSON2Dict(input_file):
+    """
+    Read a JSON file. Will return a list or dict.
+
+    :param input_file: input JSON file path.
+
+    """
+    import json
+
+    with open(input_file) as f:
+        data = json.load(f)
+    return data
+
+def writeDict2JSON(data_dict, out_file):
+    """
+    Write some data to a JSON file. The data would commonly be structured as a dict
+    but could also be a list.
+
+    :param data_dict: The dict (or list) to be written to the output JSON file.
+    :param out_file: The file path to the output file.
+
+    """
+    import json
+
+    with open(out_file, "w") as fp:
+        json.dump(
+            data_dict,
+            fp,
+            sort_keys=True,
+            indent=4,
+            separators=(",", ": "),
+            ensure_ascii=False,
+        )
+
+
 def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_feather=None, out_excel=None, excel_sheet=None, out_csv=None):
-    rsgis_utils = rsgislib.RSGISPyUtils()
     tile_files = glob.glob(os.path.join(tile_stats_dir, "*.json"))
     first = True
     for tile_stats_file in tqdm.tqdm(tile_files):
-        tile_stats_dict = rsgis_utils.readJSON2Dict(tile_stats_file)
+        tile_stats_dict = readJSON2Dict(tile_stats_file)
         if first:
             combined_stats = tile_stats_dict
             first = False
@@ -24,7 +57,7 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
         if combined_stats[uid]['count'] > 0:
             combined_stats_vld[uid] = combined_stats[uid]
 
-    rsgis_utils.writeDict2JSON(combined_stats_vld, out_json_file)
+    writeDict2JSON(combined_stats_vld, out_json_file)
 
     if (out_feather is not None) or (out_excel is not None) or (out_csv is not None):
         df_dict = dict()
@@ -33,7 +66,7 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
         df_dict['area'] = list()
 
         if uid_lut_file is not None:
-            uid_lut_dict = rsgis_utils.readJSON2Dict(uid_lut_file)
+            uid_lut_dict = readJSON2Dict(uid_lut_file)
             df_dict['region'] = list()
 
 
