@@ -84,34 +84,13 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
 
 
 
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_mjr_v311_tpflt"
-input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_fnl_*_v311_tpflt_country_stats.feather"))
-country_names_lut_file = "../gadm_lut.json"
-out_feather=os.path.join(out_dir, "gmw_v311_tpflt_national_stats.feather")
-out_excel=os.path.join(out_dir, "gmw_v311_tpflt_national_stats.xlsx")
-excel_sheet="gmw_v311_tpflt"
-out_csv=os.path.join(out_dir, "gmw_v311_tpflt_national_stats.csv")
-merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
-
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_mjr_v311_notpflt"
-input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_fnl_*_v311_notpflt_country_stats.feather"))
-country_names_lut_file = "../gadm_lut.json"
-out_feather=os.path.join(out_dir, "gmw_v311_notpflt_national_stats.feather")
-out_excel=os.path.join(out_dir, "gmw_v311_notpflt_national_stats.xlsx")
-excel_sheet="gmw_v311_notpflt"
-out_csv=os.path.join(out_dir, "gmw_v311_notpflt_national_stats.csv")
-merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
-
-
-"""
 for lyr in ['mjr', 'min', 'max']:
-    out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_v309".format(lyr)
+    out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_v312".format(lyr)
 
-    input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_fnl_{}_*_v309_country_stats.feather".format(lyr)))
+    input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_fnl_{}_*_v312_country_stats.feather".format(lyr)))
     country_names_lut_file = "../gadm_lut.json"
-    out_feather=os.path.join(out_dir, "gmw_v309_{}_national_stats.feather".format(lyr))
-    out_excel=os.path.join(out_dir, "gmw_v309_{}_national_stats.xlsx".format(lyr))
-    excel_sheet="gmw_v309_{}".format(lyr)
-    out_csv=os.path.join(out_dir, "gmw_v309_{}_national_stats.csv".format(lyr))
+    out_feather=os.path.join(out_dir, "gmw_v312_{}_national_stats.feather".format(lyr))
+    out_excel=os.path.join(out_dir, "gmw_v312_{}_national_stats.xlsx".format(lyr))
+    excel_sheet="gmw_v312_{}".format(lyr)
+    out_csv=os.path.join(out_dir, "gmw_v312_{}_national_stats.csv".format(lyr))
     merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
-"""
