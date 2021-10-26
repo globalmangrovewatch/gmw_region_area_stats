@@ -102,7 +102,7 @@ for lyr in ['mjr', 'min', 'max']:
                              out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.feather".format(lyr, year)),
                              out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.xlsx".format(lyr, year)),
                              excel_sheet="{}_{}_v312".format(lyr, year),
-                             out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_{}__v312_country_stats.csv".format(lyr, year)),)
+                             out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.csv".format(lyr, year)),)
 """
 
 
