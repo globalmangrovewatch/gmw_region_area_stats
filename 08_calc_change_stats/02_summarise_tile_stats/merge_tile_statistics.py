@@ -96,7 +96,7 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             xls_writer.save()
 
 
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/chng_f1996/gmw_v3_chng_f1996_v312"
+out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_chng_f1996_v312"
 if not os.path.exists(out_dir):
     os.mkdir(out_dir)
 
@@ -110,7 +110,7 @@ for year in ['2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '20
                          out_csv=os.path.join(out_dir, "gmw_v3_chng_f1996_t{}_v312_country_stats.csv".format(year)))
 
 
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/annual_chngs/gmw_v3_annual_chng_v312"
+out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_annual_chng_v312"
 if not os.path.exists(out_dir):
     os.mkdir(out_dir)
 
