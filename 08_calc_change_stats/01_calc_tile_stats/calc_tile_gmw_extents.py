@@ -66,10 +66,10 @@ class CalcTileGMWExtent(PBPTQProcessTool):
         calc_unq_val_pxl_areas(self.params['tile_pxa_img'], self.params['tile_roi_img'], self.params['img_tile'], lut_vals)
 
         for val in unq_vals:
-            lut_vals[val]['count'][0] = int(lut_vals[val]['count'])
-            lut_vals[val]['area'][0] = float(lut_vals[val]['area'])
-            lut_vals[val]['count'][1] = int(lut_vals[val]['count'])
-            lut_vals[val]['area'][1] = float(lut_vals[val]['area'])
+            lut_vals[val]['count'][0] = int(lut_vals[val]['count'][0])
+            lut_vals[val]['area'][0] = float(lut_vals[val]['area'][0])
+            lut_vals[val]['count'][1] = int(lut_vals[val]['count'][1])
+            lut_vals[val]['area'][1] = float(lut_vals[val]['area'][1])
 
         rsgis_utils = rsgislib.RSGISPyUtils()
         rsgis_utils.writeDict2JSON(lut_vals, self.params['out_file'])
