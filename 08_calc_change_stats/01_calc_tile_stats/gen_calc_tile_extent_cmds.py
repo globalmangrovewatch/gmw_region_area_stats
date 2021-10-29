@@ -29,6 +29,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                 mod_time_stamp = os.path.getmtime(img_tile)
                 mod_time = datetime.datetime.fromtimestamp(mod_time_stamp)
                 if mod_time > datetime.datetime(2021, 10, 29, hour=8):
+                    print("Removing: {}".format(out_file))
                     os.remove(out_file)
 
             if not os.path.exists(out_file):
