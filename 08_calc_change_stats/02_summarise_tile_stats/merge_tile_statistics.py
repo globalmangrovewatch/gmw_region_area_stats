@@ -56,8 +56,8 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
 
     combined_stats_vld = dict()
     for uid in combined_stats:
-        if (combined_stats[uid]['count'][0] > 0) and (combined_stats[uid]['count'][1] > 0):
-            combined_stats_vld[uid] = combined_stats[uid]
+        #if (combined_stats[uid]['count'][0] > 0) and (combined_stats[uid]['count'][1] > 0):
+        combined_stats_vld[uid] = combined_stats[uid]
 
     writeDict2JSON(combined_stats_vld, out_json_file)
 
