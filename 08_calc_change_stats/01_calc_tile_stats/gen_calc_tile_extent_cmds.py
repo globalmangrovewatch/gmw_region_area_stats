@@ -4,6 +4,7 @@ import logging
 import os
 import glob
 import geopandas
+import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -13,15 +14,23 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         if not os.path.exists(kwargs['out_path']):
             os.mkdir(kwargs['out_path'])
         rsgis_utils = rsgislib.RSGISPyUtils()
-        base_gpdf = geopandas.read_file(kwargs['roi_vec'], layer=kwargs['roi_vec_lyr'])
-        unq_vals = base_gpdf[kwargs['roi_vec_col']].unique().tolist() 
-        base_gpdf = None
-        rsgis_utils.writeDict2JSON(unq_vals, kwargs['unq_vals_file'])
+        if not os.path.exists(kwargs['unq_vals_file']):
+            base_gpdf = geopandas.read_file(kwargs['roi_vec'], layer=kwargs['roi_vec_lyr'])
+            unq_vals = base_gpdf[kwargs['roi_vec_col']].unique().tolist()
+            base_gpdf = None
+            rsgis_utils.writeDict2JSON(unq_vals, kwargs['unq_vals_file'])
 
         img_tiles = glob.glob(kwargs['img_tiles'])
         for img_tile in img_tiles:
             tile_base_name = rsgis_utils.get_file_basename(img_tile, checkvalid=False)
             out_file = os.path.join(kwargs['out_path'], "{}_stats.json".format(tile_base_name))
+
+            if os.path.exists(out_file):
+                mod_time_stamp = os.path.getmtime(img_tile)
+                mod_time = datetime.datetime.fromtimestamp(mod_time_stamp)
+                if mod_time > datetime.datetime(2021, 10, 29, hour=8):
+                    os.remove(out_file)
+
             if not os.path.exists(out_file):
                 tile_generic_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
                 tile_roi_img = os.path.join(kwargs['roi_img_path'], "{}_roi_{}.kea".format(tile_generic_base_name, kwargs['roi_name']))
