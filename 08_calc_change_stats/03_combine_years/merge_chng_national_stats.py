@@ -64,7 +64,10 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
     if comb_df is not None:
         cnty_lst = list()
         for region in comb_df['region']:
-            cnty_lst.append(country_names_luts['gid'][region])
+            if region in country_names_luts['gid']:
+                cnty_lst.append(country_names_luts['gid'][region])
+            else:
+                cnty_lst.append('NA')
         comb_df['name'] = cnty_lst
 
         comb_df = comb_df[['region', 'name', '2007_count_gain', '2008_count_gain',
