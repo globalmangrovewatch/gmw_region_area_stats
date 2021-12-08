@@ -72,8 +72,8 @@ def merge_annual_stats(input_v20_file, input_v25_file, country_names_lut_file, o
 
 
 out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v20_v25_2010"
-input_v20_file = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v20_2010/gmw_v20_2010_country_stats.json"
-input_v25_file = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v25_2010/gmw_v25_2010_country_stats.json"
+input_v20_file = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v20_2010/gmw_v20_2010_country_stats.feather"
+input_v25_file = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v25_2010/gmw_v25_2010_country_stats.feather"
 country_names_lut_file = "../gadm_lut.json"
 out_feather=os.path.join(out_dir, "gmw_v20_v25_2010_national_stats.feather")
 out_excel=os.path.join(out_dir, "gmw_v20_v25_2010_national_stats.xlsx")
