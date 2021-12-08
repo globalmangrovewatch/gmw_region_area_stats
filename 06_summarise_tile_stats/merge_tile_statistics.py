@@ -90,69 +90,21 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             xls_writer.save()
 
 
-for lyr in ['mjr', 'min', 'max']:
-    out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_v312".format(lyr)
-    if not os.path.exists(out_dir):
-        os.mkdir(out_dir)
+out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v20_2010"
+merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v20_2010',
+                     out_json_file=os.path.join(out_dir, "gmw_v20_2010_country_stats.json"),
+                     uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
+                     out_feather=os.path.join(out_dir, "gmw_v20_2010_country_stats.feather"),
+                     out_excel=os.path.join(out_dir, "gmw_v20_2010_country_stats.xlsx"),
+                     excel_sheet="gmw_v20_2010",
+                     out_csv=os.path.join(out_dir, "gmw_v20_2010_country_stats.csv"))
 
-    for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-        merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_{}_{}_v312'.format(lyr, year),
-                             out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.json".format(lyr, year)),
-                             uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                             out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.feather".format(lyr, year)),
-                             out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.xlsx".format(lyr, year)),
-                             excel_sheet="{}_{}_v312".format(lyr, year),
-                             out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.csv".format(lyr, year)),)
-"""
-
-
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_mjr_v311_tpflt"
-if not os.path.exists(out_dir):
-    os.mkdir(out_dir)
-
-for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-    merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_mjr_{}_v311_tpflt'.format(year),
-                         out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_tpflt_country_stats.json".format(year)),
-                         uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                         out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_tpflt_country_stats.feather".format(year)),
-                         out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_tpflt_country_stats.xlsx".format(year)),
-                         excel_sheet="{}_v311_tpflt".format(year),
-                         out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_tpflt_country_stats.csv".format(year)))
-
-
-
-
-
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_mjr_v311_notpflt"
-if not os.path.exists(out_dir):
-    os.mkdir(out_dir)
-
-for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-    merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_mjr_{}_v311_notpflt'.format(year),
-                         out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_notpflt_country_stats.json".format(year)),
-                         uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                         out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_notpflt_country_stats.feather".format(year)),
-                         out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_notpflt_country_stats.xlsx".format(year)),
-                         excel_sheet="{}_v311_notpflt".format(year),
-                         out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_notpflt_country_stats.csv".format(year)))
-
-"""
-
-
-""""
-if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--indir", type=str, required=True, help="Input directory containing json file stats.")
-    parser.add_argument("--outfile", type=str, required=True, help="Output combined statistics JSON file.")
-    parser.add_argument("--lutfile", type=str, required=False, help="Optional. LUT file can be provided to populated into the excel or feather files.")
-    parser.add_argument("--excel", type=str, required=False, help="Optional. Output Excel file (.xlsx).")
-    parser.add_argument("--sheet", type=str, required=False, help="Optional. Name for sheet in the Excel file.")
-    parser.add_argument("--csv", type=str, required=False, help="Optional. Output CSV file.")
-    parser.add_argument("--feather", type=str, required=False, help="Optional. Output feather file for saving the pandas dataframe.")
-
-    args = parser.parse_args()
-    merge_gmw_tile_stats(args.indir, args.outfile, uid_lut_file=args.lutfile, out_feather=args.feather, out_excel=args.excel, excel_sheet=args.sheet, out_csv=args.csv)
-
-"""
+out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v25_2010"
+merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v25_2010',
+                     out_json_file=os.path.join(out_dir, "gmw_v25_2010_country_stats.json"),
+                     uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
+                     out_feather=os.path.join(out_dir, "gmw_v25_2010_country_stats.feather"),
+                     out_excel=os.path.join(out_dir, "gmw_v25_2010_country_stats.xlsx"),
+                     excel_sheet="gmw_v25_2010",
+                     out_csv=os.path.join(out_dir, "gmw_v25_2010_country_stats.csv"))
 
