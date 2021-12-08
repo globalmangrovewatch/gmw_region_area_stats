@@ -46,7 +46,7 @@ def merge_annual_stats(input_v20_file, input_v25_file, country_names_lut_file, o
 
     gmw_tmp_df = pandas.read_feather(input_v25_file)
     gmw_tmp_df = gmw_tmp_df.rename(columns={'count': 'gmw_v25_count', 'area': 'gmw_v25_area'})
-    gmw_df = pandas.merge(left=gmw_df, right=gmw_tmp_df, left_on='region', right_on='region')
+    gmw_df = pandas.merge(left=gmw_df, right=gmw_tmp_df, how='outer', left_on='region', right_on='region')
 
     if gmw_df is not None:
         cnty_lst = list()
