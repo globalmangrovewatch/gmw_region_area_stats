@@ -72,11 +72,11 @@ def merge_annual_stats(input_v20_file, input_v25_file, country_names_lut_file, o
 
 
 out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v20_v25_2010"
-input_pd_files = ["/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v20_2010/gmw_v20_2010_country_stats.json",
-                  "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v25_2010/gmw_v25_2010_country_stats.json"]
+input_v20_file = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v20_2010/gmw_v20_2010_country_stats.json"
+input_v25_file = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v25_2010/gmw_v25_2010_country_stats.json"
 country_names_lut_file = "../gadm_lut.json"
 out_feather=os.path.join(out_dir, "gmw_v20_v25_2010_national_stats.feather")
 out_excel=os.path.join(out_dir, "gmw_v20_v25_2010_national_stats.xlsx")
 excel_sheet="gmw_2010"
 out_csv=os.path.join(out_dir, "gmw_v20_v25_2010_national_stats.csv")
-merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
+merge_annual_stats(input_v20_file, input_v25_file, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
