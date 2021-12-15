@@ -59,7 +59,7 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
             if cln_year == '2007':
                 comb_df = yr_df
             else:
-                comb_df = pandas.merge(left=comb_df, right=yr_df, left_on='region', right_on='region')
+                comb_df = pandas.merge(left=comb_df, right=yr_df, how='outer', left_on='region', right_on='region')
 
     if comb_df is not None:
         cnty_lst = list()
