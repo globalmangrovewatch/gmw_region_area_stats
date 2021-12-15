@@ -88,6 +88,17 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
 
         comb_df = comb_df.sort_values(by=['name']).reset_index()
         comb_df = comb_df.drop(['index'], axis=1)
+
+        col_count_names = ['2007_count_gain', '2008_count_gain', '2009_count_gain',
+                           '2010_count_gain', '2015_count_gain', '2016_count_gain',
+                           '2017_count_gain', '2018_count_gain', '2019_count_gain',
+                           '2020_count_gain', '2007_count_loss', '2008_count_loss',
+                           '2009_count_loss', '2010_count_loss', '2015_count_loss',
+                           '2016_count_loss', '2017_count_loss', '2018_count_loss',
+                           '2019_count_loss', '2020_count_loss']
+        comb_df['CountSum'] = comb_df[col_count_names].sum(axis=1)
+
+
         print(comb_df)
 
         if out_feather is not None:
