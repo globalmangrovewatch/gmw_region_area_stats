@@ -90,19 +90,20 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             xls_writer.save()
 
 
-for lyr in ['mjr', 'min', 'max']:
-    out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_v312".format(lyr)
+version = "v314"
+for lyr in ['mjr']:#, 'min', 'max']:
+    out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_{}".format(lyr, version)
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
 
     for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-        merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_{}_{}_v312'.format(lyr, year),
-                             out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.json".format(lyr, year)),
+        merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_{}_{}_{}'.format(lyr, year, version),
+                             out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_{}_country_stats.json".format(lyr, year, version)),
                              uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                             out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.feather".format(lyr, year)),
-                             out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.xlsx".format(lyr, year)),
-                             excel_sheet="{}_{}_v312".format(lyr, year),
-                             out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_v312_country_stats.csv".format(lyr, year)),)
+                             out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_{}_country_stats.feather".format(lyr, year, version)),
+                             out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_{}_country_stats.xlsx".format(lyr, year, version)),
+                             excel_sheet="{}_{}_{}".format(lyr, year, version),
+                             out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_{}_country_stats.csv".format(lyr, year, version)),)
 """
 
 
