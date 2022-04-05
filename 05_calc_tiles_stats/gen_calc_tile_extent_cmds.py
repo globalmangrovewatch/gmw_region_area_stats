@@ -46,7 +46,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         # Country Statistics
         for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
             self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_v3_fnl_mjr_{}_v314/*.kea'.format(year),
-                                  tile_name_rm='_{}_mjr_v3_fnl'.format(year),
+                                  tile_name_rm='_{}_mjr_v314'.format(year),
                                   roi_name='countries',
                                   roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
                                   roi_vec_lyr='National',
