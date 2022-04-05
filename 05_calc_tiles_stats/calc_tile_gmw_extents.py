@@ -2,6 +2,7 @@ from pbprocesstools.pbpt_q_process import PBPTQProcessTool
 import logging
 import os
 import rsgislib
+import rsgislib.tools.utils
 import numpy
 import osgeo.gdal as gdal
 
@@ -52,8 +53,7 @@ class CalcTileGMWExtent(PBPTQProcessTool):
         super().__init__(cmd_name='gen_calc_tile_extent_cmds.py', descript=None)
 
     def do_processing(self, **kwargs):
-        rsgis_utils = rsgislib.RSGISPyUtils()
-        unq_vals = rsgis_utils.readJSON2Dict(self.params['unq_vals_file'])
+        unq_vals = rsgislib.tools.utils.read_json_to_dict(self.params['unq_vals_file'])
         lut_vals = dict()
         for val in unq_vals:
             lut_vals[val] = dict()
@@ -66,8 +66,7 @@ class CalcTileGMWExtent(PBPTQProcessTool):
             lut_vals[val]['count'] = int(lut_vals[val]['count'])
             lut_vals[val]['area'] = float(lut_vals[val]['area'])
 
-        rsgis_utils = rsgislib.RSGISPyUtils()
-        rsgis_utils.writeDict2JSON(lut_vals, self.params['out_file'])
+        rsgislib.tools.utils.write_dict_to_json(lut_vals, self.params['out_file'])
 
     def required_fields(self, **kwargs):
         return ["img_tile", "unq_vals_file", "tile_pxa_img", "tile_roi_img", "out_file",]

@@ -1,9 +1,12 @@
 from pbprocesstools.pbpt_q_process import PBPTGenQProcessToolCmds
-import rsgislib
+
 import logging
 import os
 import glob
 import geopandas
+
+import rsgislib.tools.utils
+import rsgislib.tools.filetools
 
 logger = logging.getLogger(__name__)
 
@@ -12,15 +15,15 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
     def gen_command_info(self, **kwargs):
         if not os.path.exists(kwargs['out_path']):
             os.mkdir(kwargs['out_path'])
-        rsgis_utils = rsgislib.RSGISPyUtils()
+
         base_gpdf = geopandas.read_file(kwargs['roi_vec'], layer=kwargs['roi_vec_lyr'])
         unq_vals = base_gpdf[kwargs['roi_vec_col']].unique().tolist() 
         base_gpdf = None
-        rsgis_utils.writeDict2JSON(unq_vals, kwargs['unq_vals_file'])
+        rsgislib.tools.utils.write_dict_to_json(unq_vals, kwargs['unq_vals_file'])
 
         img_tiles = glob.glob(kwargs['img_tiles'])
         for img_tile in img_tiles:
-            tile_base_name = rsgis_utils.get_file_basename(img_tile, checkvalid=False)
+            tile_base_name = rsgislib.tools.filetools.get_file_basename(img_tile, check_valid=False)
             out_file = os.path.join(kwargs['out_path'], "{}_stats.json".format(tile_base_name))
             if not os.path.exists(out_file):
                 tile_generic_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
