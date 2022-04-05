@@ -83,7 +83,7 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
             comb_df.to_excel(out_excel, sheet_name=excel_sheet)
 
 
-version = "v314"
+version = "v313"
 for lyr in ['mjr']:#, 'min', 'max']:
     out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_{}".format(lyr, version)
 
