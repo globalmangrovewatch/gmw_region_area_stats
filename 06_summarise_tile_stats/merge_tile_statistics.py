@@ -90,7 +90,7 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             xls_writer.save()
 
 
-version = "v313"
+version = "v315"
 for lyr in ['mjr']:#, 'min', 'max']:
     out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_{}".format(lyr, version)
     if not os.path.exists(out_dir):
