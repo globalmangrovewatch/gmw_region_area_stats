@@ -1,5 +1,7 @@
 from pbprocesstools.pbpt_q_process import PBPTGenQProcessToolCmds
 import rsgislib
+import rsgislib.tools.utils
+import rsgislib.tools.filetools
 import logging
 import os
 import glob
@@ -13,16 +15,16 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
     def gen_command_info(self, **kwargs):
         if not os.path.exists(kwargs['out_path']):
             os.mkdir(kwargs['out_path'])
-        rsgis_utils = rsgislib.RSGISPyUtils()
+
         if not os.path.exists(kwargs['unq_vals_file']):
             base_gpdf = geopandas.read_file(kwargs['roi_vec'], layer=kwargs['roi_vec_lyr'])
             unq_vals = base_gpdf[kwargs['roi_vec_col']].unique().tolist()
             base_gpdf = None
-            rsgis_utils.writeDict2JSON(unq_vals, kwargs['unq_vals_file'])
+            rsgislib.tools.utils.write_dict_to_json(unq_vals, kwargs['unq_vals_file'])
 
         img_tiles = glob.glob(kwargs['img_tiles'])
         for img_tile in img_tiles:
-            tile_base_name = rsgis_utils.get_file_basename(img_tile, checkvalid=False)
+            tile_base_name = rsgislib.tools.filetools.get_file_basename(img_tile, check_valid=False)
             out_file = os.path.join(kwargs['out_path'], "{}_stats.json".format(tile_base_name))
 
             if os.path.exists(out_file):
@@ -52,7 +54,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
     def run_gen_commands(self):
         # Country Statistics
         for year in ['2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/fnl_v3_prods/gmw_chngs/gmw_v3_f1996_t{}_v312_kea/*.kea'.format(year),
+            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/fnl_v3_prods/gmw_chngs/gmw_v3_f1996_t{}_v314_kea/*.kea'.format(year),
                                   tile_name_rm='_v3_chng_f1996_t{}'.format(year),
                                   roi_name='countries',
                                   roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
@@ -61,12 +63,12 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                                   pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                                   roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
                                   unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_mjr_unqvals.json'.format(year),
-                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/chng_f1996/gmw_v3_f1996_t{}_v312'.format(year))
+                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/chng_f1996/gmw_v3_f1996_t{}_v314'.format(year))
 
         years = ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']
         for i, year in enumerate(years):
             if year != '2020':
-                self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/fnl_v3_prods/gmw_chngs/gmw_v3_f{}_t{}_v312_kea/*.kea'.format(year, years[i+1]),
+                self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/fnl_v3_prods/gmw_chngs/gmw_v3_f{}_t{}_v314_kea/*.kea'.format(year, years[i+1]),
                                       tile_name_rm='_v3_chng_f{}_t{}'.format(year, years[i+1]),
                                       roi_name='countries',
                                       roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
@@ -75,7 +77,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                                       pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                                       roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
                                       unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_min_unqvals.json'.format(year),
-                                      out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/annual_chngs/gmw_v3_f{}_t{}_v312'.format(year, years[i+1]))
+                                      out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/annual_chngs/gmw_v3_f{}_t{}_v314'.format(year, years[i+1]))
 
 
         self.pop_params_db()
