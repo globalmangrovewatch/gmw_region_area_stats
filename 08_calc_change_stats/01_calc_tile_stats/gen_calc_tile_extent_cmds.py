@@ -55,7 +55,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         # Country Statistics
         for year in ['2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
             self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/fnl_v3_prods/gmw_chngs/gmw_v3_f1996_t{}_v314_kea/*.kea'.format(year),
-                                  tile_name_rm='_v3_chng_f1996_t{}'.format(year),
+                                  tile_name_rm='_chng_f1996_t{}_v314'.format(year),
                                   roi_name='countries',
                                   roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
                                   roi_vec_lyr='National',
@@ -69,7 +69,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         for i, year in enumerate(years):
             if year != '2020':
                 self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/fnl_v3_prods/gmw_chngs/gmw_v3_f{}_t{}_v314_kea/*.kea'.format(year, years[i+1]),
-                                      tile_name_rm='_v3_chng_f{}_t{}'.format(year, years[i+1]),
+                                      tile_name_rm='_chng_f{}_t{}_v314'.format(year, years[i+1]),
                                       roi_name='countries',
                                       roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
                                       roi_vec_lyr='National',
