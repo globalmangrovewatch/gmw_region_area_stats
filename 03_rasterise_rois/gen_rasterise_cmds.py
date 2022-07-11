@@ -1,5 +1,5 @@
 from pbprocesstools.pbpt_q_process import PBPTGenQProcessToolCmds
-import rsgislib
+import rsgislib.tools.filetools
 import logging
 import os
 import glob
@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 class GenTileExtentCmds(PBPTGenQProcessToolCmds):
 
     def gen_command_info(self, **kwargs):
-        rsgis_utils = rsgislib.RSGISPyUtils()
+
         img_tiles = glob.glob(kwargs['img_tiles'])
         for img_tile in img_tiles:
-            tile_base_name = rsgis_utils.get_file_basename(img_tile, checkvalid=False)
+            tile_base_name = rsgislib.tools.filetools.get_file_basename(img_tile, checkvalid=False)
             tile_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
             out_roi_file = os.path.join(kwargs['out_roi_path'], "{}_roi_{}.kea".format(tile_base_name, kwargs['roi_name']))
             if not os.path.exists(out_roi_file):
@@ -25,6 +25,8 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                 self.params.append(c_dict)
 
     def run_gen_commands(self):
+        """"""
+        """
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
                               tile_name_rm='_tile_gmw_v3_init_qad',
                               roi_name='countries_sub',
@@ -32,15 +34,15 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_lyr='National',
                               roi_vec_col='unqid',
                               out_roi_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_sub_roi_tiles')
-
-        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
-                              tile_name_rm='_tile_gmw_v3_init_qad',
+        """
+        self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_data/gmw1996v2.0/*.kea',
+                              tile_name_rm='_gmw1996v2.0',
                               roi_name='countries',
                               roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
                               roi_vec_lyr='National',
                               roi_vec_col='unqid',
-                              out_roi_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles')
-
+                              out_roi_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles_v2_tiles')
+        """
         self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_gapfill/data/gmw_tiles/gmw_init_v3_qa/*.kea',
                               tile_name_rm='_tile_gmw_v3_init_qad',
                               roi_name='ramsar',
@@ -48,6 +50,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_vec_lyr='polys',
                               roi_vec_col='unqid',
                               out_roi_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/wdpa_ramsar_roi_tiles')
+        """
 
         self.pop_params_db()
         self.create_slurm_sub_sh("gmw_tiles_stats", 8224, '/scratch/a.pfb/gmw_calc_region_area_stats/logs',

@@ -43,11 +43,10 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                 self.params.append(c_dict)
 
     def run_gen_commands(self):
-        version="v315"
         # Country Statistics
-        for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_v3_fnl_mjr_{}_{}/*.kea'.format(year, version),
-                                  tile_name_rm='_{}_mjr_{}'.format(year, version),
+        for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016']:
+            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v2_data/gmw{}v2.0/*.kea'.format(year),
+                                  tile_name_rm='_gmw{}v2.0'.format(year),
                                   roi_name='countries',
                                   roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
                                   roi_vec_lyr='National',
@@ -55,33 +54,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                                   pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
                                   roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
                                   unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_mjr_unqvals.json'.format(year),
-                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_mjr_{}_{}'.format(year, version))
-
-        """
-        for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_v3_fnl_min_{}_v312/*.kea'.format(year),
-                                  tile_name_rm='_{}_min_v3_fnl'.format(year),
-                                  roi_name='countries',
-                                  roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                                  roi_vec_lyr='National',
-                                  roi_vec_col='unqid',
-                                  pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                                  roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_min_unqvals.json'.format(year),
-                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_min_{}_v312'.format(year))
-
-        for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-            self.gen_command_info(img_tiles='/scratch/a.pfb/gmw_v3_change/data/gmw_chng_data/gmw_v3_fnl_max_{}_v312/*.kea'.format(year),
-                                  tile_name_rm='_{}_max_v3_fnl'.format(year),
-                                  roi_name='countries',
-                                  roi_vec='/scratch/a.pfb/gmw_calc_region_area_stats/data/GADM_EEZ_WCMC_UnqID.gpkg',
-                                  roi_vec_lyr='National',
-                                  roi_vec_col='unqid',
-                                  pxa_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/pixel_area_tiles',
-                                  roi_img_path='/scratch/a.pfb/gmw_calc_region_area_stats/data/roi_tiles/country_roi_tiles',
-                                  unq_vals_file='/scratch/a.pfb/gmw_calc_region_area_stats/tmp/country_roi_tiles_{}_v3_max_unqvals.json'.format(year),
-                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_max_{}_v312'.format(year))
-        """
+                                  out_path='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_mjr_{}_{}'.format(year))
 
         self.pop_params_db()
         self.create_slurm_sub_sh("gmw_tiles_stats", 8224, '/scratch/a.pfb/gmw_calc_region_area_stats/logs',
