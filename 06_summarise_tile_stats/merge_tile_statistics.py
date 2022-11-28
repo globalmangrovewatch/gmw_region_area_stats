@@ -2,47 +2,13 @@ import glob
 import os
 import tqdm
 import pandas
-
-def readJSON2Dict(input_file):
-    """
-    Read a JSON file. Will return a list or dict.
-
-    :param input_file: input JSON file path.
-
-    """
-    import json
-
-    with open(input_file) as f:
-        data = json.load(f)
-    return data
-
-def writeDict2JSON(data_dict, out_file):
-    """
-    Write some data to a JSON file. The data would commonly be structured as a dict
-    but could also be a list.
-
-    :param data_dict: The dict (or list) to be written to the output JSON file.
-    :param out_file: The file path to the output file.
-
-    """
-    import json
-
-    with open(out_file, "w") as fp:
-        json.dump(
-            data_dict,
-            fp,
-            sort_keys=True,
-            indent=4,
-            separators=(",", ": "),
-            ensure_ascii=False,
-        )
-
+import rsgislib.tools.utils
 
 def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_feather=None, out_excel=None, excel_sheet=None, out_csv=None):
     tile_files = glob.glob(os.path.join(tile_stats_dir, "*.json"))
     first = True
     for tile_stats_file in tqdm.tqdm(tile_files):
-        tile_stats_dict = readJSON2Dict(tile_stats_file)
+        tile_stats_dict = rsgislib.tools.utils.read_json_to_dict(tile_stats_file)
         if first:
             combined_stats = tile_stats_dict
             first = False
@@ -57,7 +23,7 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
         if combined_stats[uid]['count'] > 0:
             combined_stats_vld[uid] = combined_stats[uid]
 
-    writeDict2JSON(combined_stats_vld, out_json_file)
+    rsgislib.tools.utils.write_dict_to_json(combined_stats_vld, out_json_file)
 
     if (out_feather is not None) or (out_excel is not None) or (out_csv is not None):
         df_dict = dict()
@@ -66,7 +32,7 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
         df_dict['area'] = list()
 
         if uid_lut_file is not None:
-            uid_lut_dict = readJSON2Dict(uid_lut_file)
+            uid_lut_dict = rsgislib.tools.utils.read_json_to_dict(uid_lut_file)
             df_dict['region'] = list()
 
 
@@ -90,70 +56,18 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             xls_writer.save()
 
 
-version = "v315"
-for lyr in ['mjr']:#, 'min', 'max']:
-    out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_{}".format(lyr, version)
-    if not os.path.exists(out_dir):
-        os.mkdir(out_dir)
 
-    for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-        merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_{}_{}_{}'.format(lyr, year, version),
-                             out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_{}_country_stats.json".format(lyr, year, version)),
-                             uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                             out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_{}_country_stats.feather".format(lyr, year, version)),
-                             out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_{}_country_stats.xlsx".format(lyr, year, version)),
-                             excel_sheet="{}_{}_{}".format(lyr, year, version),
-                             out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_{}_{}_country_stats.csv".format(lyr, year, version)),)
-"""
-
-
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_mjr_v311_tpflt"
+out_dir = f"/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_stats"
 if not os.path.exists(out_dir):
     os.mkdir(out_dir)
 
 for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-    merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_mjr_{}_v311_tpflt'.format(year),
-                         out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_tpflt_country_stats.json".format(year)),
-                         uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                         out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_tpflt_country_stats.feather".format(year)),
-                         out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_tpflt_country_stats.xlsx".format(year)),
-                         excel_sheet="{}_v311_tpflt".format(year),
-                         out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_tpflt_country_stats.csv".format(year)))
+    merge_gmw_tile_stats(tile_stats_dir=f'/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_stats/tile_stats/gmw_{year}_v3',
+                         out_json_file=os.path.join(out_dir, f"gmw_v3_{year}_country_stats.json"),
+                         uid_lut_file="../02_define_unique_code/un_boundaries_lut.json",
+                         out_feather=os.path.join(out_dir, f"gmw_v3_{year}_country_stats.feather"),
+                         out_excel=os.path.join(out_dir, f"gmw_v3_{year}_country_stats.xlsx"),
+                         excel_sheet=f"gmw_v3_{year}",
+                         out_csv=os.path.join(out_dir, f"gmw_v3_{year}_country_stats.csv"),)
 
-
-
-
-
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_mjr_v311_notpflt"
-if not os.path.exists(out_dir):
-    os.mkdir(out_dir)
-
-for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-    merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/gmw_v3_fnl_mjr_{}_v311_notpflt'.format(year),
-                         out_json_file=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_notpflt_country_stats.json".format(year)),
-                         uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                         out_feather=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_notpflt_country_stats.feather".format(year)),
-                         out_excel=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_notpflt_country_stats.xlsx".format(year)),
-                         excel_sheet="{}_v311_notpflt".format(year),
-                         out_csv=os.path.join(out_dir, "gmw_v3_fnl_{}_v311_notpflt_country_stats.csv".format(year)))
-
-"""
-
-
-""""
-if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--indir", type=str, required=True, help="Input directory containing json file stats.")
-    parser.add_argument("--outfile", type=str, required=True, help="Output combined statistics JSON file.")
-    parser.add_argument("--lutfile", type=str, required=False, help="Optional. LUT file can be provided to populated into the excel or feather files.")
-    parser.add_argument("--excel", type=str, required=False, help="Optional. Output Excel file (.xlsx).")
-    parser.add_argument("--sheet", type=str, required=False, help="Optional. Name for sheet in the Excel file.")
-    parser.add_argument("--csv", type=str, required=False, help="Optional. Output CSV file.")
-    parser.add_argument("--feather", type=str, required=False, help="Optional. Output feather file for saving the pandas dataframe.")
-
-    args = parser.parse_args()
-    merge_gmw_tile_stats(args.indir, args.outfile, uid_lut_file=args.lutfile, out_feather=args.feather, out_excel=args.excel, excel_sheet=args.sheet, out_csv=args.csv)
-
-"""
 

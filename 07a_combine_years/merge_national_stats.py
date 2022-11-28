@@ -1,45 +1,10 @@
 import glob
 import pandas
 import os
-
-def readJSON2Dict(input_file):
-    """
-    Read a JSON file. Will return a list or dict.
-
-    :param input_file: input JSON file path.
-
-    """
-    import json
-
-    with open(input_file) as f:
-        data = json.load(f)
-    return data
-
-def writeDict2JSON(data_dict, out_file):
-    """
-    Write some data to a JSON file. The data would commonly be structured as a dict
-    but could also be a list.
-
-    :param data_dict: The dict (or list) to be written to the output JSON file.
-    :param out_file: The file path to the output file.
-
-    """
-    import json
-
-    with open(out_file, "w") as fp:
-        json.dump(
-            data_dict,
-            fp,
-            sort_keys=True,
-            indent=4,
-            separators=(",", ": "),
-            ensure_ascii=False,
-        )
-
-
+import rsgislib.tools.utils
 
 def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None, out_excel=None, excel_sheet=None, out_csv=None):
-    country_names_luts = readJSON2Dict(country_names_lut_file)
+    country_names_luts = rsgislib.tools.utils.read_json_to_dict(country_names_lut_file)
     years = ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']
     year_info = dict()
     comb_df = None
@@ -83,14 +48,13 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
             comb_df.to_excel(out_excel, sheet_name=excel_sheet)
 
 
-version = "v315"
-for lyr in ['mjr']:#, 'min', 'max']:
-    out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_fnl_{}_{}".format(lyr, version)
 
-    input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_fnl_{}_*_{}_country_stats.feather".format(lyr, version)))
-    country_names_lut_file = "../gadm_lut.json"
-    out_feather=os.path.join(out_dir, "gmw_{}_{}_national_stats.feather".format(lyr, version))
-    out_excel=os.path.join(out_dir, "gmw_{}_{}_national_stats.xlsx".format(lyr, version))
-    excel_sheet="gmw_{}_{}".format(lyr, version)
-    out_csv=os.path.join(out_dir, "gmw_{}_{}_national_stats.csv".format(lyr, version))
-    merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
+out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_stats"
+
+input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_*_country_stats.feather"))
+country_names_lut_file = "../un_boundaries_lut.json"
+out_feather=os.path.join(out_dir, f"gmw_v3_country_stats.feather")
+out_excel=os.path.join(out_dir, f"gmw_v3_country_stats.xlsx")
+excel_sheet="gmw_v3_stats"
+out_csv=os.path.join(out_dir, "gmw_v3_national_stats.csv")
+merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
