@@ -57,7 +57,7 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
 
 
 
-out_dir = f"/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_stats"
+out_dir = f"/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_stats/gmw_v3_stats"
 if not os.path.exists(out_dir):
     os.mkdir(out_dir)
 
@@ -69,5 +69,3 @@ for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '20
                          out_excel=os.path.join(out_dir, f"gmw_v3_{year}_country_stats.xlsx"),
                          excel_sheet=f"gmw_v3_{year}",
                          out_csv=os.path.join(out_dir, f"gmw_v3_{year}_country_stats.csv"),)
-
-

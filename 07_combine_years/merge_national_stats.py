@@ -49,9 +49,10 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
 
 
 
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_stats"
+in_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_stats/gmw_v3_stats"
+out_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_stats"
 
-input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_*_country_stats.feather"))
+input_pd_files = glob.glob(os.path.join(in_dir, "gmw_v3_*_country_stats.feather"))
 country_names_lut_file = "../un_boundaries_lut.json"
 out_feather=os.path.join(out_dir, f"gmw_v3_country_stats.feather")
 out_excel=os.path.join(out_dir, f"gmw_v3_country_stats.xlsx")
