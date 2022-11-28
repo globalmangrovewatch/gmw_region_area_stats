@@ -62,34 +62,16 @@ def merge_gmw_tile_stats(tile_stats_dir, out_json_file, uid_lut_file=None, out_f
             xls_writer.save()
 
 
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_chng_f1996_v314"
+out_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/gmw_v3_chng_f1996"
 if not os.path.exists(out_dir):
     os.mkdir(out_dir)
 
 for year in ['2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-    merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/chng_f1996/gmw_v3_f1996_t{}_v314'.format(year),
-                         out_json_file=os.path.join(out_dir, "gmw_v3_chng_f1996_t{}_v314_country_stats.json".format(year)),
-                         uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                         out_feather=os.path.join(out_dir, "gmw_v3_chng_f1996_t{}_v314_country_stats.feather".format(year)),
-                         out_excel=os.path.join(out_dir, "gmw_v3_chng_f1996_t{}_v314_country_stats.xlsx".format(year)),
-                         excel_sheet="chng_f1996_t{}_v314".format(year),
-                         out_csv=os.path.join(out_dir, "gmw_v3_chng_f1996_t{}_v314_country_stats.csv".format(year)))
-
-
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_annual_chng_v314"
-if not os.path.exists(out_dir):
-    os.mkdir(out_dir)
-
-years = ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']
-for i, year in enumerate(years):
-    if year != '2020':
-        merge_gmw_tile_stats(tile_stats_dir='/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/tile_stats/annual_chngs/gmw_v3_f{}_t{}_v314'.format(year, years[i+1]),
-                             out_json_file=os.path.join(out_dir, "gmw_v3_chng_f{}_t{}_v314_country_stats.json".format(year, years[i+1])),
-                             uid_lut_file="/scratch/a.pfb/gmw_calc_region_area_stats/data/unq_id_lut.json",
-                             out_feather=os.path.join(out_dir, "gmw_v3_chng_f{}_t{}_v314_country_stats.feather".format(year, years[i+1])),
-                             out_excel=os.path.join(out_dir, "gmw_v3_chng_f{}_t{}_v314_country_stats.xlsx".format(year, years[i+1])),
-                             excel_sheet="chng_f{}_t{}_v314".format(year, years[i+1]),
-                             out_csv=os.path.join(out_dir, "gmw_v3_chng_f{}_t{}_v314_country_stats.csv".format(year, years[i+1])))
-
-
+    merge_gmw_tile_stats(tile_stats_dir=f'/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/tile_stats/gmw_{year}_v3',
+                         out_json_file=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_country_stats.json"),
+                         uid_lut_file="../../02_define_unique_code/un_boundaries_lut.json",
+                         out_feather=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_country_stats.feather"),
+                         out_excel=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_country_stats.xlsx"),
+                         excel_sheet=f"chng_f1996_t{year}",
+                         out_csv=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_country_stats.csv"))
 

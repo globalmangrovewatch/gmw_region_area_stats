@@ -79,26 +79,14 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
 
 
 
+in_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/gmw_v3_chng_f1996"
+out_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/"
 
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_chng_f1996_v314"
-
-input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_chng_f1996_t*_v314_country_stats.feather"))
-country_names_lut_file = "../../gadm_lut.json"
-out_feather=os.path.join(out_dir, "gmw_v314_chng_f1996_national_stats.feather")
-out_excel=os.path.join(out_dir, "gmw_v314_chng_f1996_national_stats.xlsx")
-excel_sheet="gmw_v314_chng_f1996"
-out_csv=os.path.join(out_dir, "gmw_v314_chng_f1996_national_stats.csv")
+input_pd_files = glob.glob(os.path.join(in_dir, f"gmw_v3_chng_f1996_t*_country_stats.feather"))
+country_names_lut_file = "../../un_boundaries_lut.json"
+out_feather=os.path.join(out_dir, "gmw_v3_chng_f1996_national_stats.feather")
+out_excel=os.path.join(out_dir, "gmw_v3_chng_f1996_national_stats.xlsx")
+excel_sheet="gmw_v3_chng_f1996"
+out_csv=os.path.join(out_dir, "gmw_v3_chng_f1996_national_stats.csv")
 merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
 
-
-
-
-out_dir = "/scratch/a.pfb/gmw_calc_region_area_stats/stats/country_stats/gmw_v3_annual_chng_v314"
-
-input_pd_files = glob.glob(os.path.join(out_dir, "gmw_v3_chng_*_v314_country_stats.feather"))
-country_names_lut_file = "../../gadm_lut.json"
-out_feather=os.path.join(out_dir, "gmw_v314_annual_chngs_national_stats.feather")
-out_excel=os.path.join(out_dir, "gmw_v314_annual_chngs_national_stats.xlsx")
-excel_sheet="gmw_v314_annual_chngs"
-out_csv=os.path.join(out_dir, "gmw_v314_annual_chngs_national_stats.csv")
-merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
