@@ -45,7 +45,8 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
     def run_gen_commands(self):
         # Country Statistics
         for year in ['1996', '2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
-            self.gen_command_info(img_tiles=f'/home/pete/Documents/gmw_v3_regional_stats/data/gmw_v3_extent/gmw_v3_{year}/*.kea',
+            print(year)
+            self.gen_command_info(img_tiles=f'/home/pete/Documents/gmw_v3_regional_stats/data/gmw_v3_extent/gmw_v3_{year}/*.tif',
                                   tile_name_rm=f'_{year}_v3',
                                   roi_name='countries_sub',
                                   roi_vec='/home/pete/Documents/gmw_v3_regional_stats/data/UNBoundaries_wEEZ_unq.gpkg',
