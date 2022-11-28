@@ -53,15 +53,18 @@ def add_unq_numeric_col(
     if lut_json_file is not None:
         rsgislib.tools.utils.write_dict_to_json(lut, lut_json_file)
 
+
 vec_file = "/home/pete/Documents/gmw_v3_regional_stats/data/UNBoundaries_wEEZ.gpkg"
 vec_lyr = "UNBoundaries_wEEZ"
 
 out_vec_file = "/home/pete/Documents/gmw_v3_regional_stats/data/UNBoundaries_wEEZ_unq.gpkg"
 out_vec_lyr = "UNBoundaries_wEEZ_unq"
 
+
 lut_json_file = "un_boundaries_lut.json"
 
 add_unq_numeric_col(vec_file, vec_lyr, "ISO3CD", "cntry_uid", out_vec_file, out_vec_lyr, "GPKG", lut_json_file)
+
 
 
 
