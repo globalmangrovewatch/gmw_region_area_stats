@@ -69,7 +69,7 @@ class CalcTileGMWExtent(PBPTQProcessTool):
         rsgislib.tools.utils.write_dict_to_json(lut_vals, self.params['out_file'])
 
     def required_fields(self, **kwargs):
-        return ["img_tile", "unq_vals_file", "tile_pxa_img", "tile_roi_img", "out_file",]
+        return ["img_tile", "unq_vals_file", "tile_pxa_img", "tile_roi_img", "out_file"]
 
     def outputs_present(self, **kwargs):
         return os.path.exists(self.params['out_file']), dict()
