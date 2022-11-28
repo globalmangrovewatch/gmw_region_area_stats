@@ -2,8 +2,7 @@ from pbprocesstools.pbpt_q_process import PBPTQProcessTool
 import logging
 import os
 import rsgislib
-import rsgislib.imagecalc
-import rsgislib.vectorutils
+import rsgislib.imageutils
 
 logger = logging.getLogger(__name__)
 
@@ -13,8 +12,7 @@ class CalcPixelArea(PBPTQProcessTool):
         super().__init__(cmd_name='calc_pixel_area.py', descript=None)
 
     def do_processing(self, **kwargs):
-        rsgislib.imagecalc.calcWSG84PixelArea(self.params['img_tile'], self.params['tile_pxa_img'],
-                                              scale=10000, gdalformat='KEA')
+        rsgislib.imageutils.calc_wgs84_pixel_area(self.params['img_tile'], self.params['tile_pxa_img'], scale = 10000, gdalformat = 'KEA')
 
     def required_fields(self, **kwargs):
         return ["img_tile", "tile_pxa_img"]
