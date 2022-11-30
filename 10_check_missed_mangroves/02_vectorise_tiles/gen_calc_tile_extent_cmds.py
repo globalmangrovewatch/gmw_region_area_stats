@@ -3,7 +3,7 @@ from pbprocesstools.pbpt_q_process import PBPTGenQProcessToolCmds
 import logging
 import os
 import glob
-import geopandas
+
 
 import rsgislib.tools.utils
 import rsgislib.tools.filetools

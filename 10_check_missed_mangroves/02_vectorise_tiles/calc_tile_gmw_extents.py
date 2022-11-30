@@ -1,6 +1,8 @@
 from pbprocesstools.pbpt_q_process import PBPTQProcessTool
 import logging
 import os
+import pathlib
+
 import rsgislib
 import rsgislib.tools.utils
 import rsgislib.vectorutils.createvectors
@@ -17,6 +19,7 @@ class CalcTileGMWExtent(PBPTQProcessTool):
         pxl_counts = rsgislib.imagecalc.count_pxls_of_val(self.params['img_tile'], vals=[1], img_band=1)
         if pxl_counts[0] > 0:
             rsgislib.vectorutils.createvectors.polygonise_raster_to_vec_lyr(self.params['out_vec_file'], self.params['out_vec_lyr'], out_format="GPKG", input_img=self.params['img_tile'], img_band = 1, mask_img = self.params['img_tile'], mask_band = 1, replace_file = True, replace_lyr = True, pxl_val_fieldname = 'PXLVAL', use_8_conn = False)
+        pathlib.Path(self.params['out_file']).touch()
 
     def required_fields(self, **kwargs):
         return ["img_tile", "out_vec_file", "out_vec_lyr", "out_file"]
