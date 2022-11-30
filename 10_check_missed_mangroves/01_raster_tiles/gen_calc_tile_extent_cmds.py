@@ -19,7 +19,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         img_tiles = glob.glob(kwargs['img_tiles'])
         for img_tile in img_tiles:
             tile_base_name = rsgislib.tools.filetools.get_file_basename(img_tile, check_valid=False)
-            out_file = os.path.join(kwargs['out_path'], "{}_missed_mng.kea")
+            out_file = os.path.join(kwargs['out_path'], f"{tile_base_name}_missed_mng.kea")
             if not os.path.exists(out_file):
                 tile_generic_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
                 tile_roi_img = os.path.join(kwargs['roi_img_path'], "{}_roi_{}.kea".format(tile_generic_base_name, kwargs['roi_name']))
@@ -38,6 +38,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
             print(year)
             self.gen_command_info(img_tiles=f'/home/pete/Documents/gmw_v3_regional_stats/data/gmw_v3_extent/gmw_v3_{year}/*.tif',
                                   tile_name_rm=f'_{year}_v3',
+                                  roi_name='countries_sub',
                                   roi_img_path='/home/pete/Documents/gmw_v3_regional_stats/data/un_country_rois',
                                   out_path=f'/home/pete/Documents/gmw_v3_regional_stats/data/tests/tile_rasters/gmw_{year}_v3')
 
