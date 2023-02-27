@@ -31,8 +31,8 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
                               roi_name='countries_sub',
                               roi_vec='/home/pete/Documents/gmw_v3_regional_stats/data/UNBoundaries_wEEZ_unq.gpkg',
                               roi_vec_lyr='UNBoundaries_wEEZ_unq',
-                              roi_vec_col='cntry_uid',
-                              out_roi_path='/home/pete/Documents/gmw_v3_regional_stats/data/un_country_rois')
+                              roi_vec_col='m49_un1_uid',
+                              out_roi_path='/home/pete/Documents/gmw_v3_regional_stats/data/m49_un1_uid_rois')
 
         self.pop_params_db()
 
