@@ -1,7 +1,7 @@
 import pandas
 
-extent_file = "00_base_stats/gmw_v3_country_stats.feather"
-chngs_file = "00_base_stats/gmw_v3_chng_f1996_national_stats.feather"
+extent_file = "00_base_stats/gmw_v3_m49_un1_stats.feather"
+chngs_file = "00_base_stats/gmw_v3_chng_f1996_m49_un1_stats.feather"
 
 extent_stats_df = pandas.read_feather(extent_file)
 chng_stats_df = pandas.read_feather(chngs_file)
@@ -90,14 +90,14 @@ chng_loss_corr_stats_df[loss_cols] = chng_loss_corr_stats_df[loss_cols] + (chng_
 
 
 # Export corrected gain and loss files
-chng_gain_corr_stats_df.to_csv("gmw_v3_chng_gain_corrected.csv")
-chng_loss_corr_stats_df.to_csv("gmw_v3_chng_loss_corrected.csv")
+chng_gain_corr_stats_df.to_csv("gmw_v3_chng_gain_corrected_m49_un1.csv")
+chng_loss_corr_stats_df.to_csv("gmw_v3_chng_loss_corrected_m49_un1.csv")
 
-chng_gain_corr_stats_df.to_feather("gmw_v3_chng_gain_corrected.feather")
-chng_loss_corr_stats_df.to_feather("gmw_v3_chng_loss_corrected.feather")
+chng_gain_corr_stats_df.to_feather("gmw_v3_chng_gain_corrected_m49_un1.feather")
+chng_loss_corr_stats_df.to_feather("gmw_v3_chng_loss_corrected_m49_un1.feather")
 
-chng_gain_corr_stats_df.to_excel("gmw_v3_chng_gain_corrected.xlsx")
-chng_loss_corr_stats_df.to_excel("gmw_v3_chng_loss_corrected.xlsx")
+chng_gain_corr_stats_df.to_excel("gmw_v3_chng_gain_corrected_m49_un1.xlsx")
+chng_loss_corr_stats_df.to_excel("gmw_v3_chng_loss_corrected_m49_un1.xlsx")
 
 
 
@@ -121,6 +121,6 @@ for i, row in no_chng_rgns_df.iterrows():
 
 # Export Corrected Country Areas
 extent_stats_corr_df = extent_stats_corr_df.reset_index()
-extent_stats_corr_df.to_csv("gmw_v3_country_areas_corrected.csv")
-extent_stats_corr_df.to_feather("gmw_v3_country_areas_corrected.feather")
-extent_stats_corr_df.to_excel("gmw_v3_country_areas_corrected.xlsx") 
+extent_stats_corr_df.to_csv("gmw_v3_m49_un1_areas_corrected.csv")
+extent_stats_corr_df.to_feather("gmw_v3_m49_un1_areas_corrected.feather")
+extent_stats_corr_df.to_excel("gmw_v3_m49_un1_areas_corrected.xlsx")
