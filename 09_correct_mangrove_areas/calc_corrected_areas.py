@@ -35,11 +35,11 @@ chng_stats_df = chng_stats_df.drop(columns=cols_rm)
 chng_stats_df = chng_stats_df.drop(columns=["index"])
 
 # Calculate the global totals and print for info
-extent_totals_df = extent_stats_df.drop(columns=["region", "name"]).sum(axis=0)
+extent_totals_df = extent_stats_df.drop(columns=["m49_un1"]).sum(axis=0)
 print(extent_totals_df/100)
 
 # Create seperate gain and loss dataframes
-chng_totals_df = chng_stats_df.drop(columns=["region", "name"]).sum(axis=0)
+chng_totals_df = chng_stats_df.drop(columns=["m49_un1"]).sum(axis=0)
 
 gain_cols = ["2007_area_gain", "2008_area_gain", "2009_area_gain", "2010_area_gain", "2015_area_gain", "2016_area_gain", "2017_area_gain", "2018_area_gain", "2019_area_gain", "2020_area_gain"]
 loss_cols = ["2007_area_loss", "2008_area_loss", "2009_area_loss", "2010_area_loss", "2015_area_loss", "2016_area_loss", "2017_area_loss", "2018_area_loss", "2019_area_loss", "2020_area_loss"]
@@ -102,9 +102,9 @@ chng_loss_corr_stats_df.to_excel("gmw_v3_chng_loss_corrected_m49_un1.xlsx")
 
 
 # Define region as the index so all countries are correctly matched.
-chng_gain_corr_stats_df = chng_gain_corr_stats_df.set_index("region")
-chng_loss_corr_stats_df = chng_loss_corr_stats_df.set_index("region")
-extent_stats_corr_df = extent_stats_corr_df.set_index("region")
+chng_gain_corr_stats_df = chng_gain_corr_stats_df.set_index("m49_un1")
+chng_loss_corr_stats_df = chng_loss_corr_stats_df.set_index("m49_un1")
+extent_stats_corr_df = extent_stats_corr_df.set_index("m49_un1")
 
 # Calculate the corrected values per year based on change and 1996 area
 gmw_chng_years = [2007, 2008, 2009, 2010, 2015, 2016, 2017, 2018, 2019, 2020]
