@@ -48,8 +48,8 @@ out_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_stats"
 
 input_pd_files = glob.glob(os.path.join(in_dir, "gmw_v3_*_m49_un1_stats.feather"))
 #country_names_lut_file = "../un_boundaries_lut.json"
-out_feather=os.path.join(out_dir, f"gmw_v3_country_stats.feather")
-out_excel=os.path.join(out_dir, f"gmw_v3_country_stats.xlsx")
+out_feather=os.path.join(out_dir, f"gmw_v3_m49_un1_stats.feather")
+out_excel=os.path.join(out_dir, f"gmw_v3_m49_un1_stats.xlsx")
 excel_sheet="gmw_v3_stats"
-out_csv=os.path.join(out_dir, "gmw_v3_national_stats.csv")
+out_csv=os.path.join(out_dir, "gmw_v3_m49_un1_stats.csv")
 merge_annual_stats(input_pd_files, out_feather, out_excel, excel_sheet, out_csv)
