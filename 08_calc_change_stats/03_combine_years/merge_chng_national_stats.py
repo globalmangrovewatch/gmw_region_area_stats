@@ -3,8 +3,7 @@ import pandas
 import os
 import rsgislib.tools.utils
 
-def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None, out_excel=None, excel_sheet=None, out_csv=None):
-    country_names_luts = rsgislib.tools.utils.read_json_to_dict(country_names_lut_file)
+def merge_annual_stats(input_pd_files, out_feather=None, out_excel=None, excel_sheet=None, out_csv=None):
     years = ['t2007', 't2008', 't2009', 't2010', 't2015', 't2016', 't2017', 't2018', 't2019', 't2020']
     year_info = dict()
     comb_df = None
@@ -27,15 +26,7 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
                 comb_df = pandas.merge(left=comb_df, right=yr_df, how='outer', left_on='region', right_on='region')
 
     if comb_df is not None:
-        cnty_lst = list()
-        for region in comb_df['region']:
-            if region in country_names_luts['gid']:
-                cnty_lst.append(country_names_luts['gid'][region])
-            else:
-                cnty_lst.append('NA')
-        comb_df['name'] = cnty_lst
-
-        comb_df = comb_df[['region', 'name', '2007_count_gain', '2008_count_gain',
+        comb_df = comb_df[['region', '2007_count_gain', '2008_count_gain',
                            '2009_count_gain', '2010_count_gain', '2015_count_gain',
                            '2016_count_gain', '2017_count_gain', '2018_count_gain',
                            '2019_count_gain', '2020_count_gain', 
@@ -51,7 +42,7 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
                            '2017_area_loss', '2018_area_loss', '2019_area_loss',
                            '2020_area_loss']]
 
-        comb_df = comb_df.sort_values(by=['name']).reset_index()
+        comb_df = comb_df.sort_values(by=['region']).reset_index()
         comb_df = comb_df.drop(['index'], axis=1)
 
         col_count_names = ['2007_count_gain', '2008_count_gain', '2009_count_gain',
@@ -64,7 +55,9 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
         comb_df['CountSum'] = comb_df[col_count_names].sum(axis=1)
         comb_df = comb_df.drop(comb_df[comb_df['CountSum']==0].index)
         comb_df = comb_df.drop(columns=['CountSum'])
-        comb_df = comb_df.sort_values(by=['name']).reset_index()
+        comb_df = comb_df.drop(columns=col_count_names)
+        comb_df = comb_df.sort_values(by=['region']).reset_index()
+        comb_df = comb_df.rename(columns={'region': 'm49_un1'})
 
         print(comb_df)
 
@@ -82,11 +75,11 @@ def merge_annual_stats(input_pd_files, country_names_lut_file, out_feather=None,
 in_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/gmw_v3_chng_f1996"
 out_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/"
 
-input_pd_files = glob.glob(os.path.join(in_dir, f"gmw_v3_chng_f1996_t*_country_stats.feather"))
-country_names_lut_file = "../../un_boundaries_lut.json"
-out_feather=os.path.join(out_dir, "gmw_v3_chng_f1996_national_stats.feather")
-out_excel=os.path.join(out_dir, "gmw_v3_chng_f1996_national_stats.xlsx")
+input_pd_files = glob.glob(os.path.join(in_dir, f"gmw_v3_chng_f1996_t*_m49_un1_stats.feather"))
+#country_names_lut_file = "../../un_boundaries_lut.json"
+out_feather=os.path.join(out_dir, "gmw_v3_chng_f1996_m49_un1_stats.feather")
+out_excel=os.path.join(out_dir, "gmw_v3_chng_f1996_m49_un1_stats.xlsx")
 excel_sheet="gmw_v3_chng_f1996"
-out_csv=os.path.join(out_dir, "gmw_v3_chng_f1996_national_stats.csv")
-merge_annual_stats(input_pd_files, country_names_lut_file, out_feather, out_excel, excel_sheet, out_csv)
+out_csv=os.path.join(out_dir, "gmw_v3_chng_f1996_m49_un1_stats.csv")
+merge_annual_stats(input_pd_files, out_feather, out_excel, excel_sheet, out_csv)
 
