@@ -26,14 +26,14 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         for img_tile in img_tiles:
             tile_base_name = rsgislib.tools.filetools.get_file_basename(img_tile, check_valid=False)
             out_file = os.path.join(kwargs['out_path'], "{}_stats.json".format(tile_base_name))
-
+            """
             if os.path.exists(out_file):
                 mod_time_stamp = os.path.getmtime(img_tile)
                 mod_time = datetime.datetime.fromtimestamp(mod_time_stamp)
                 if mod_time > datetime.datetime(2021, 10, 29, hour=8):
                     print("Removing: {}".format(out_file))
                     os.remove(out_file)
-
+            """
             if not os.path.exists(out_file):
                 tile_generic_base_name = tile_base_name.replace(kwargs['tile_name_rm'], '')
                 tile_roi_img = os.path.join(kwargs['roi_img_path'], "{}_roi_{}.kea".format(tile_generic_base_name, kwargs['roi_name']))
