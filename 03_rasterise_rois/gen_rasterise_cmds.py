@@ -28,7 +28,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
     def run_gen_commands(self):
         self.gen_command_info(img_tiles='/home/pete/Documents/gmw_v3_regional_stats/data/gmw_v3_extent/gmw_v3_2020/*.tif',
                               tile_name_rm='_2020_v3',
-                              roi_name='countries_sub',
+                              roi_name='m49_un1',
                               roi_vec='/home/pete/Documents/gmw_v3_regional_stats/data/UNBoundaries_wEEZ_unq.gpkg',
                               roi_vec_lyr='UNBoundaries_wEEZ_unq',
                               roi_vec_col='m49_un1_uid',
