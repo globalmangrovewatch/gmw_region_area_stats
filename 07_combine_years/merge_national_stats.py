@@ -23,7 +23,7 @@ def merge_annual_stats(input_pd_files, out_feather=None, out_excel=None, excel_s
                 comb_df = pandas.merge(left=comb_df, right=yr_df, left_on='region', right_on='region')
 
     if comb_df is not None:
-        comb_df = comb_df[['region', '1996_count', '2007_count', '2008_count', '2009_count', '2010_count',
+        comb_df = comb_df[['m49_un1', '1996_count', '2007_count', '2008_count', '2009_count', '2010_count',
                            '2015_count', '2016_count', '2017_count', '2018_count', '2019_count', '2020_count',
                            '1996_area', '2007_area', '2008_area', '2009_area', '2010_area', '2015_area', '2016_area',
                            '2017_area', '2018_area', '2019_area', '2020_area']]
