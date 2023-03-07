@@ -79,8 +79,8 @@ out_vec_lyr = "UNboundaries_wEEZ_fix_unq"
 lut_json_file = "un_boundaries_fid_lut.json"
 
 add_unq_numeric_col(
-    vec_file=vec_file,
-    vec_lyr=vec_lyr,
+    vec_file=fid_vec_file,
+    vec_lyr=fid_vec_lyr,
     unq_col="gmw_fid",
     out_col="gmw_fid_uid",
     out_vec_file=out_vec_file,
