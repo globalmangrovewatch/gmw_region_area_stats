@@ -68,10 +68,10 @@ if not os.path.exists(out_dir):
 
 for year in ['2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
     merge_gmw_tile_stats(tile_stats_dir=f'/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/tile_stats/gmw_{year}_v3',
-                         out_json_file=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_m49_un1_stats.json"),
-                         uid_lut_file="../../02_define_unique_code/un_boundaries_m49_un1_lut.json",
-                         out_feather=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_m49_un1_stats.feather"),
-                         out_excel=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_m49_un1_stats.xlsx"),
+                         out_json_file=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_gmw_fid_uid_stats.json"),
+                         uid_lut_file="../../02_define_unique_code/un_boundaries_gmw_fid_uid_lut.json",
+                         out_feather=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_gmw_fid_uid_stats.feather"),
+                         out_excel=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_gmw_fid_uid_stats.xlsx"),
                          excel_sheet=f"chng_f1996_t{year}",
-                         out_csv=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_m49_un1_stats.csv"))
+                         out_csv=os.path.join(out_dir, f"gmw_v3_chng_f1996_t{year}_gmw_fid_uid_stats.csv"))
 

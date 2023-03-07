@@ -57,7 +57,7 @@ def merge_annual_stats(input_pd_files, out_feather=None, out_excel=None, excel_s
         comb_df = comb_df.drop(columns=['CountSum'])
         comb_df = comb_df.drop(columns=col_count_names)
         comb_df = comb_df.sort_values(by=['region']).reset_index()
-        comb_df = comb_df.rename(columns={'region': 'm49_un1'})
+        comb_df = comb_df.rename(columns={'region': 'gmw_fid_uid'})
 
         print(comb_df)
 
@@ -75,11 +75,11 @@ def merge_annual_stats(input_pd_files, out_feather=None, out_excel=None, excel_s
 in_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/gmw_v3_chng_f1996"
 out_dir = "/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/"
 
-input_pd_files = glob.glob(os.path.join(in_dir, f"gmw_v3_chng_f1996_t*_m49_un1_stats.feather"))
+input_pd_files = glob.glob(os.path.join(in_dir, f"gmw_v3_chng_f1996_t*_gmw_fid_uid_stats.feather"))
 #country_names_lut_file = "../../un_boundaries_lut.json"
-out_feather=os.path.join(out_dir, "gmw_v3_chng_f1996_m49_un1_stats.feather")
-out_excel=os.path.join(out_dir, "gmw_v3_chng_f1996_m49_un1_stats.xlsx")
+out_feather=os.path.join(out_dir, "gmw_v3_chng_f1996_gmw_fid_uid_stats.feather")
+out_excel=os.path.join(out_dir, "gmw_v3_chng_f1996_gmw_fid_uid_stats.xlsx")
 excel_sheet="gmw_v3_chng_f1996"
-out_csv=os.path.join(out_dir, "gmw_v3_chng_f1996_m49_un1_stats.csv")
+out_csv=os.path.join(out_dir, "gmw_v3_chng_f1996_gmw_fid_uid_stats.csv")
 merge_annual_stats(input_pd_files, out_feather, out_excel, excel_sheet, out_csv)
 

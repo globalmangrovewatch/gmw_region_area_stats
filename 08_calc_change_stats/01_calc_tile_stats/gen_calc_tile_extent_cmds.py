@@ -56,12 +56,12 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
         for year in ['2007', '2008', '2009', '2010', '2015', '2016', '2017', '2018', '2019', '2020']:
             self.gen_command_info(img_tiles=f'/home/pete/Documents/gmw_v3_regional_stats/data/gmw_v3_changes/gmw_v3_f1996_t{year}/*.tif',
                                   tile_name_rm=f'_chng_f1996_t{year}_v3',
-                                  roi_name='m49_un1',
-                                  roi_vec='/home/pete/Documents/gmw_v3_regional_stats/data/UNBoundaries_wEEZ_unq.gpkg',
-                                  roi_vec_lyr='UNBoundaries_wEEZ_unq',
-                                  roi_vec_col='m49_un1_uid',
+                                  roi_name='gmw_fid',
+                                  roi_vec='/home/pete/Documents/gmw_v3_regional_stats/data/UNboundaries_wEEZ_fix_unq.gpkg',
+                                  roi_vec_lyr='UNboundaries_wEEZ_fix_unq',
+                                  roi_vec_col='gmw_fid_uid',
                                   pxa_img_path='/home/pete/Documents/gmw_v3_regional_stats/data/pixel_area_tiles',
-                                  roi_img_path='/home/pete/Documents/gmw_v3_regional_stats/data/m49_un1_uid_rois',
+                                  roi_img_path='/home/pete/Documents/gmw_v3_regional_stats/data/gmw_fid_uid_rois',
                                   unq_vals_file=f'/home/pete/Documents/gmw_v3_regional_stats/tmp/country_roi_tiles_{year}_v3_unqvals.json',
                                   out_path=f'/home/pete/Documents/gmw_v3_regional_stats/data/stats/country_chng_stats/tile_stats/gmw_{year}_v3')
 
