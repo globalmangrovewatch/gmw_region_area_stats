@@ -1,4 +1,5 @@
 import numpy
+import rsgislib.vectorattrs
 
 def add_unq_numeric_col(
     vec_file: str,
@@ -63,19 +64,25 @@ def add_unq_numeric_col(
         rsgislib.tools.utils.write_dict_to_json(lut, lut_json_file)
 
 
-vec_file = "/home/pete/Documents/gmw_v3_regional_stats/data/UNBoundaries_wEEZ.gpkg"
-vec_lyr = "UNBoundaries_wEEZ"
+vec_file = "/home/pete/Documents/gmw_v3_regional_stats/data/UNboundaries_wEEZ_fix.gpkg"
+vec_lyr = "UNboundaries_wEEZ_fix"
 
-out_vec_file = "/home/pete/Documents/gmw_v3_regional_stats/data/UNBoundaries_wEEZ_unq.gpkg"
-out_vec_lyr = "UNBoundaries_wEEZ_unq"
+fid_vec_file = "/home/pete/Documents/gmw_v3_regional_stats/data/UNboundaries_wEEZ_fix_fid.gpkg"
+fid_vec_lyr = "UNboundaries_wEEZ_fix_fid"
 
-lut_json_file = "un_boundaries_m49_un1_lut.json"
+rsgislib.vectorattrs.add_fid_col(vec_file, vec_lyr, fid_vec_file, fid_vec_lyr, out_format = 'GPKG', out_col = 'gmw_fid')
+
+
+out_vec_file = "/home/pete/Documents/gmw_v3_regional_stats/data/UNboundaries_wEEZ_fix_unq.gpkg"
+out_vec_lyr = "UNboundaries_wEEZ_fix_unq"
+
+lut_json_file = "un_boundaries_fid_lut.json"
 
 add_unq_numeric_col(
     vec_file=vec_file,
     vec_lyr=vec_lyr,
-    unq_col="M49_UN1",
-    out_col="m49_un1_uid",
+    unq_col="gmw_fid",
+    out_col="gmw_fid_uid",
     out_vec_file=out_vec_file,
     out_vec_lyr=out_vec_lyr,
     out_format = "GPKG",
