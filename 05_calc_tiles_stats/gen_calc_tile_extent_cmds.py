@@ -48,7 +48,7 @@ class GenTileExtentCmds(PBPTGenQProcessToolCmds):
             print(year)
             self.gen_command_info(img_tiles=f'/home/pete/Documents/gmw_v3_regional_stats/data/gmw_v3_extent/gmw_v3_{year}/*.tif',
                                   tile_name_rm=f'_{year}_v3',
-                                  roi_name='gmw_fid_uid',
+                                  roi_name='gmw_fid',
                                   roi_vec='/home/pete/Documents/gmw_v3_regional_stats/data/UNboundaries_wEEZ_fix_unq.gpkg',
                                   roi_vec_lyr='UNboundaries_wEEZ_fix_unq',
                                   roi_vec_col='gmw_fid_uid',
