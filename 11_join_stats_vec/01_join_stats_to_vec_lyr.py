@@ -13,8 +13,8 @@ extent_stats_df = pandas.read_feather(extent_stats_file)
 
 data_ext_stats_gpdf = pandas.merge(data_gpdf, extent_stats_df, how='inner', left_on = 'gmw_fid_uid', right_on = 'gmw_fid_uid')
 
-data_ext_stats_gpdf.to_file("UNboundaries_wEEZ_fix_gmw_stats.gpkg", layer="UNboundaries_wEEZ_fix_gmw_stats", driver="GPKG")
+#data_ext_stats_gpdf.to_file("UNboundaries_wEEZ_fix_gmw_stats.gpkg", layer="UNboundaries_wEEZ_fix_gmw_stats", driver="GPKG")
 
-data_ext_stats_df = data_ext_stats_gpdf.drop("geometry")
+data_ext_stats_df = data_ext_stats_gpdf.drop("geometry", axis=1)
 data_ext_stats_df.to_excel("UNboundaries_wEEZ_fix_gmw_stats.xlsx")
 
